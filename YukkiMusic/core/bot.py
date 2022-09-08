@@ -18,9 +18,9 @@ from ..logging import LOGGER
 
 class YukkiBot(Client):
     def __init__(self):
-        LOGGER(__name__).info(f"Starting Bot")
+        LOGGER(__name__).info(f"دەستپێکردنی بۆت")
         super().__init__(
-            "YukkiMusicBot",
+            "IQMusicbot",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
@@ -33,21 +33,21 @@ class YukkiBot(Client):
         self.id = get_me.id
         try:
             await self.send_message(
-                config.LOG_GROUP_ID, "Bot Started"
+                config.LOG_GROUP_ID, "بۆت دەستی پێکرد"
             )
         except:
             LOGGER(__name__).error(
-                "Bot has failed to access the log Group. Make sure that you have added your bot to your log channel and promoted as admin!"
+                "بۆت شکستی هێنا لە چوونە ژورەوەی گرووپی تۆمار. دڵنیابە لەوەی کە بۆتەکەت زیاد کردووە بۆ کەناڵەکەت و بەرزتکردۆتەوە وەك بەڕێوەبەر!"
             )
             sys.exit()
         a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
-        if a.status != "administrator":
+        if a.status != "سەرپەرشتیار":
             LOGGER(__name__).error(
-                "Please promote Bot as Admin in Logger Group"
+                "تکایە بۆت بەرز بکەوە وەکو بەڕێوەر لە گرووپ"
             )
             sys.exit()
         if get_me.last_name:
             self.name = get_me.first_name + " " + get_me.last_name
         else:
             self.name = get_me.first_name
-        LOGGER(__name__).info(f"MusicBot Started as {self.name}")
+        LOGGER(__name__).info(f"{self.name} بۆتی گۆرانی دەستی پێکرد")
