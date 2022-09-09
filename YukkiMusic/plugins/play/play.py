@@ -1,4 +1,3 @@
-#
 # Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
 #
 # This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
@@ -36,7 +35,7 @@ from YukkiMusic.utils.logger import play_logs
 from YukkiMusic.utils.stream.stream import stream
 
 # Command
-PLAY_COMMAND = get_command("فەرمانەکانی پەخشکردن")
+PLAY_COMMAND = get_command("فەرمانەکانی کارپێکردن")
 
 
 @app.on_message(
