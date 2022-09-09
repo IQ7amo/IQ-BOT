@@ -19,7 +19,7 @@ from YukkiMusic.utils.decorators import language
 from YukkiMusic.utils.inline.settings import playmode_users_markup
 
 ### Commands
-PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
+PLAYMODE_COMMAND = get_command("کارپێکردنی مۆد")
 
 
 @app.on_message(
@@ -31,7 +31,7 @@ PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
 @language
 async def playmode_(client, message: Message, _):
     playmode = await get_playmode(message.chat.id)
-    if playmode == "Direct":
+    if playmode == "ڕاستەوخۆ":
         Direct = True
     else:
         Direct = None
@@ -41,7 +41,7 @@ async def playmode_(client, message: Message, _):
     else:
         Group = None
     playty = await get_playtype(message.chat.id)
-    if playty == "Everyone":
+    if playty == "هەموو کەسێك":
         Playtype = None
     else:
         Playtype = True
