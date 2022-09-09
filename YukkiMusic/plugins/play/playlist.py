@@ -29,8 +29,8 @@ from YukkiMusic.utils.pastebin import Yukkibin
 from YukkiMusic.utils.stream.stream import stream
 
 # Command
-PLAYLIST_COMMAND = get_command("PLAYLIST_COMMAND")
-DELETEPLAYLIST_COMMAND = get_command("DELETEPLAYLIST_COMMAND")
+PLAYLIST_COMMAND = get_command("فەرمانەکانی لیستی پەخشکردن")
+DELETEPLAYLIST_COMMAND = get_command("سڕینەوەی فەرمانەکانی لیستی پەخشکردن")
 
 
 @app.on_message(
@@ -100,7 +100,7 @@ async def get_keyboard(_, user_id):
         keyboard.row(
             InlineKeyboardButton(
                 text=title,
-                callback_data=f"del_playlist {x}",
+                callback_data=f"سڕینەوەی لیستی پەخشکردن {x}",
             )
         )
     keyboard.row(
@@ -109,7 +109,7 @@ async def get_keyboard(_, user_id):
             callback_data=f"سڕینەوەی ئاگاداری",
         ),
         InlineKeyboardButton(
-            text=_["CLOSE_BUTTON"], callback_data=f"داخستن"
+            text=_["داخستن"], callback_data=f"close"
         ),
     )
     return keyboard, count
