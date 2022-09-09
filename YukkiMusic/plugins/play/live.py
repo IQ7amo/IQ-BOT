@@ -68,7 +68,7 @@ async def play_live_stream(client, CallbackQuery, _):
             ex_type = type(e).__name__
             err = (
                 e
-                if ex_type == "یارمەتیدەر"
+                if ex_type == "یاریدەدەر"
                 else _["general_3"].format(ex_type)
             )
             return await mystic.edit_text(err)
