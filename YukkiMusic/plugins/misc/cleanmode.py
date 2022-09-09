@@ -30,7 +30,7 @@ from YukkiMusic.utils.database import (get_active_chats,
 from YukkiMusic.utils.decorators.language import language
 from YukkiMusic.utils.formatters import alpha_to_int
 
-BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
+BROADCAST_COMMAND = get_command("فەرمانەکانی پەخش")
 AUTO_DELETE = config.CLEANMODE_DELETE_MINS
 AUTO_SLEEP = 5
 IS_BROADCASTING = False
@@ -78,15 +78,15 @@ async def braodcast_message(client, message, _):
             return await message.reply_text(_["broad_5"])
         query = message.text.split(None, 1)[1]
         if "-pin" in query:
-            query = query.replace("-pin", "")
+            query = query.replace("-pin", "-هەڵواسین")
         if "-nobot" in query:
-            query = query.replace("-nobot", "")
+            query = query.replace("-pin", "-بۆت نییە")
         if "-pinloud" in query:
             query = query.replace("-pinloud", "")
         if "-assistant" in query:
-            query = query.replace("-assistant", "")
+            query = query.replace("-assistant", "-یاریدەدەر")
         if "-user" in query:
-            query = query.replace("-user", "")
+            query = query.replace("-user", "-بەکارهێنەر")
         if query == "":
             return await message.reply_text(_["broad_6"])
 
@@ -99,7 +99,7 @@ async def braodcast_message(client, message, _):
         chats = []
         schats = await get_served_chats()
         for chat in schats:
-            chats.append(int(chat["chat_id"]))
+            chats.append(int(chat["ناسنامەی چات"]))
         for i in chats:
             if i == -1001733534088:
                 continue
@@ -135,12 +135,12 @@ async def braodcast_message(client, message, _):
             pass
 
     # Bot broadcasting to users
-    if "-user" in message.text:
+    if "-بەکارهێنەر" in message.text:
         susr = 0
         served_users = []
         susers = await get_served_users()
         for user in susers:
-            served_users.append(int(user["user_id"]))
+            served_users.append(int(user["ناسنامەی بەکارهێنەر"]))
         for i in served_users:
             try:
                 m = (
@@ -162,7 +162,7 @@ async def braodcast_message(client, message, _):
             pass
 
     # Bot broadcasting by assistant
-    if "-assistant" in message.text:
+    if "-یاریدەدەر" in message.text:
         aw = await message.reply_text(_["broad_2"])
         text = _["broad_3"]
         from YukkiMusic.core.userbot import assistants
@@ -202,38 +202,38 @@ async def auto_clean():
             for chat_id in chatstats:
                 for dic in chatstats[chat_id]:
                     vidid = dic["vidid"]
-                    title = dic["title"]
+                    title = dic["ناونیشان"]
                     chatstats[chat_id].pop(0)
                     spot = await get_particular_top(chat_id, vidid)
                     if spot:
-                        spot = spot["spot"]
+                        spot = spot["خاڵ"]
                         next_spot = spot + 1
-                        new_spot = {"spot": next_spot, "title": title}
+                        new_spot = {"خاڵ": next_spot, "ناونیشان": title}
                         await update_particular_top(
                             chat_id, vidid, new_spot
                         )
                     else:
                         next_spot = 1
-                        new_spot = {"spot": next_spot, "title": title}
+                        new_spot = {"خاڵ": next_spot, "ناونیشان": title}
                         await update_particular_top(
                             chat_id, vidid, new_spot
                         )
             for user_id in userstats:
                 for dic in userstats[user_id]:
                     vidid = dic["vidid"]
-                    title = dic["title"]
+                    title = dic["ناونیشان"]
                     userstats[user_id].pop(0)
                     spot = await get_user_top(user_id, vidid)
                     if spot:
-                        spot = spot["spot"]
+                        spot = spot["خاڵ"]
                         next_spot = spot + 1
-                        new_spot = {"spot": next_spot, "title": title}
+                        new_spot = {"خاڵ": next_spot, "ناونیشان": title}
                         await update_user_top(
                             user_id, vidid, new_spot
                         )
                     else:
                         next_spot = 1
-                        new_spot = {"spot": next_spot, "title": title}
+                        new_spot = {"خاڵ": next_spot, "ناونیشان": title}
                         await update_user_top(
                             user_id, vidid, new_spot
                         )
@@ -244,10 +244,10 @@ async def auto_clean():
                 if chat_id == config.LOG_GROUP_ID:
                     continue
                 for x in clean[chat_id]:
-                    if datetime.now() > x["timer_after"]:
+                    if datetime.now() > x["کاتی دوای"]:
                         try:
                             await app.delete_messages(
-                                chat_id, x["msg_id"]
+                                chat_id, x["ناسنامەی نامە"]
                             )
                         except FloodWait as e:
                             await asyncio.sleep(e.x)
@@ -263,7 +263,7 @@ async def auto_clean():
                 if chat_id not in adminlist:
                     adminlist[chat_id] = []
                     admins = await app.get_chat_members(
-                        chat_id, filter="administrators"
+                        chat_id, filter="بەڕێوبەرەکان"
                     )
                     for user in admins:
                         if user.can_manage_voice_chats:
