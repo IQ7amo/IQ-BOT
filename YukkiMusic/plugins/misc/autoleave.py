@@ -31,9 +31,9 @@ async def auto_leave():
                     async for i in client.iter_dialogs():
                         chat_type = i.chat.type
                         if chat_type in [
-                            "supergroup",
-                            "group",
-                            "channel",
+                            "گرووپی گشتی",
+                            "گرووپ",
+                            "کەناڵ",
                         ]:
                             chat_id = i.chat.id
                             if (
@@ -79,7 +79,7 @@ async def auto_end():
                 try:
                     await app.send_message(
                         chat_id,
-                        "Bot has left voice chat due to inactivity to avoid overload on servers. No-one was listening to the bot on voice chat.",
+                        "بۆت چاتی دەنگی بەجێ هێشت بەهۆی ناکاریگەری بۆ خۆلادان لە زیاد بارکردن لەسەر سێرڤەرەکان. هیچ کەس گوێی لە بۆتەکە نەبوو لە قسەکردنی دەنگیدا",
                     )
                 except:
                     continue
