@@ -17,7 +17,7 @@ from YukkiMusic.utils.database import set_cmode
 from YukkiMusic.utils.decorators.admins import AdminActual
 
 ### Multi-Lang Commands
-CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
+CHANNELPLAY_COMMAND = get_command("فەرمانی پەخشکردن لە چەناڵ")
 
 
 @app.on_message(
@@ -35,10 +35,10 @@ async def playmode_(client, message: Message, _):
             )
         )
     query = message.text.split(None, 2)[1].lower().strip()
-    if (str(query)).lower() == "disable":
+    if (str(query)).lower() == "ناچالاکردن":
         await set_cmode(message.chat.id, None)
-        return await message.reply_text("Channel Play Disabled")
-    elif str(query) == "linked":
+        return await message.reply_text("پەخشکردن لە چەناڵ ناچالاکە")
+    elif str(query) == "بەستراو":
         chat = await app.get_chat(message.chat.id)
         if chat.linked_chat:
             chat_id = chat.linked_chat.id
@@ -55,16 +55,16 @@ async def playmode_(client, message: Message, _):
             chat = await app.get_chat(query)
         except:
             return await message.reply_text(_["cplay_4"])
-        if chat.type != "channel":
+        if chat.type != "کەناڵ":
             return await message.reply_text(_["cplay_5"])
         try:
             admins = await app.get_chat_members(
-                chat.id, filter="administrators"
+                chat.id, filter="بەڕێوبەرەکان"
             )
         except:
             return await message.reply_text(_["cplay_4"])
         for users in admins:
-            if users.status == "creator":
+            if users.status == "دروستکەر":
                 creatorusername = users.user.username
                 creatorid = users.user.id
         if creatorid != message.from_user.id:
