@@ -50,10 +50,10 @@ async def auth(client, message: Message, _):
             return await message.reply_text(_["auth_1"])
         if token not in _check:
             assis = {
-                "auth_user_id": user.id,
-                "auth_name": user.first_name,
-                "admin_id": from_user_id,
-                "admin_name": from_user_name,
+                "ناوی بەکارهێنەری بەرزکراو": user.id,
+                "ناوی بەرزکراو": user.first_name,
+                "ناسنامەی بەڕێوبەر": from_user_id,
+                "ناوی بەڕێوبەر": from_user_name,
             }
             get = adminlist.get(message.chat.id)
             if get:
