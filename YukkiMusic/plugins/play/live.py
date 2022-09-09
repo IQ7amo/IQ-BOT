@@ -16,7 +16,7 @@ from YukkiMusic.utils.decorators.language import languageCB
 from YukkiMusic.utils.stream.stream import stream
 
 
-@app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("پەخشکردنی ڕاستەوخۆ") & ~BANNED_USERS)
 @languageCB
 async def play_live_stream(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
@@ -50,7 +50,7 @@ async def play_live_stream(client, CallbackQuery, _):
     except Exception:
         return await mystic.edit_text(_["play_3"])
     ffplay = True if fplay == "f" else None
-    if not details["duration_min"]:
+    if not details["ماوەکەی"]:
         try:
             await stream(
                 _,
@@ -61,17 +61,17 @@ async def play_live_stream(client, CallbackQuery, _):
                 user_name,
                 CallbackQuery.message.chat.id,
                 video,
-                streamtype="live",
+                streamtype="ڕاستەوخۆ",
                 forceplay=ffplay,
             )
         except Exception as e:
             ex_type = type(e).__name__
             err = (
                 e
-                if ex_type == "AssistantErr"
+                if ex_type == "یارمەتیدەر"
                 else _["general_3"].format(ex_type)
             )
             return await mystic.edit_text(err)
     else:
-        return await mystic.edit_text("Not a live stream")
+        return await mystic.edit_text("پەخشکردنی ڕاستەوخۆ نییە")
     await mystic.delete()
