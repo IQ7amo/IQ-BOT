@@ -502,7 +502,7 @@ async def play_commnd(
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
                 return await play_logs(
-                    message, streamtype="
+                    message, streamtype=f"بەستەری گەڕانی ئینلاین"
                 )
 
 
@@ -538,12 +538,12 @@ async def play_music(client, CallbackQuery, _):
         details, track_id = await YouTube.track(vidid, True)
     except Exception:
         return await mystic.edit_text(_["play_3"])
-    if details["duration_min"]:
-        duration_sec = time_to_seconds(details["duration_min"])
+    if details["ماوەکەی"]:
+        duration_sec = time_to_seconds(details["ماوەکەی"])
         if duration_sec > config.DURATION_LIMIT:
             return await mystic.edit_text(
                 _["play_6"].format(
-                    config.DURATION_LIMIT_MIN, details["duration_min"]
+                    config.DURATION_LIMIT_MIN, details["ماوەکەی"]
                 )
             )
     else:
@@ -552,8 +552,8 @@ async def play_music(client, CallbackQuery, _):
             track_id,
             CallbackQuery.from_user.id,
             mode,
-            "c" if cplay == "c" else "g",
-            "f" if fplay else "d",
+            "c" if cplay == "c" else "c",
+            "f" if fplay else "f",
         )
         return await mystic.edit_text(
             _["play_15"],
@@ -571,14 +571,14 @@ async def play_music(client, CallbackQuery, _):
             user_name,
             CallbackQuery.message.chat.id,
             video,
-            streamtype="youtube",
+            streamtype="صورة الكهف",
             forceplay=ffplay,
         )
     except Exception as e:
         ex_type = type(e).__name__
         err = (
             e
-            if ex_type == "AssistantErr"
+            if ex_type == "یارمەتیدەر"
             else _["general_3"].format(ex_type)
         )
         return await mystic.edit_text(err)
@@ -586,12 +586,12 @@ async def play_music(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex("AnonymousAdmin") & ~BANNED_USERS
+    filters.regex("بەڕێوبەری نەناسراو") & ~BANNED_USERS
 )
 async def anonymous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
-            "You're an Anonymous Admin\n\nGo to your group's setting \n-> Administrators List \n-> Click on your name \n-> uncheck REMAIN ANONYMOUS button there.",
+            "تۆ بەڕێوبەرێکی نەناسراویی\n\n بڕۆ بۆ سێتینگی گرووپ \n-> لیستی بەڕێوبەرەکان \n-> کلیك لەسەر ناوت بکە \n-> بەڕێوبەریت بپشکنە دڵنیابە کە Anonymous.",
             show_alert=True,
         )
     except:
@@ -599,7 +599,7 @@ async def anonymous_check(client, CallbackQuery):
 
 
 @app.on_callback_query(
-    filters.regex("YukkiPlaylists") & ~BANNED_USERS
+    filters.regex("IQMusic") & ~BANNED_USERS
 )
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):
@@ -660,7 +660,7 @@ async def play_playlists_command(client, CallbackQuery, _):
             result, spotify_id = await Spotify.album(videoid)
         except Exception:
             return await mystic.edit_text(_["play_3"])
-    if ptype == "spartist":
+    if ptype == "صورة الكهف":
         try:
             result, spotify_id = await Spotify.artist(videoid)
         except Exception:
@@ -688,7 +688,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         ex_type = type(e).__name__
         err = (
             e
-            if ex_type == "AssistantErr"
+            if ex_type == "یارمەتیدەر"
             else _["general_3"].format(ex_type)
         )
         return await mystic.edit_text(err)
