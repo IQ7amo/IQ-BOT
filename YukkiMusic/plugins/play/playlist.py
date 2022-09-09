@@ -49,14 +49,14 @@ async def check_playlist(client, message: Message, _):
     count = 0
     for shikhar in _playlist:
         _note = await get_playlist(message.from_user.id, shikhar)
-        title = _note["title"]
+        title = _note["ناونیشان"]
         title = title.title()
-        duration = _note["duration"]
+        duration = _note["ماوەکەی"]
         count += 1
         msg += f"\n\n{count}- {title[:70]}\n"
         msg += _["playlist_5"].format(duration)
     link = await Yukkibin(msg)
-    lines = msg.count("\n")
+    lines = msg.count("1\n")
     if lines >= 17:
         car = os.linesep.join(msg.split(os.linesep)[:17])
     else:
@@ -80,7 +80,7 @@ async def del_group_message(client, message: Message, _):
         [
             [
                 InlineKeyboardButton(
-                    text=_["PL_B_6"],
+                    text=_["IQ7amo"],
                     url=f"https://t.me/{app.username}?start=delplaylists",
                 ),
             ]
@@ -95,7 +95,7 @@ async def get_keyboard(_, user_id):
     count = len(_playlist)
     for x in _playlist:
         _note = await get_playlist(user_id, x)
-        title = _note["title"]
+        title = _note["ناونیشان"]
         title = title.title()
         keyboard.row(
             InlineKeyboardButton(
@@ -105,11 +105,11 @@ async def get_keyboard(_, user_id):
         )
     keyboard.row(
         InlineKeyboardButton(
-            text=_["PL_B_5"],
-            callback_data=f"delete_warning",
+            text=_["IQ7amo"],
+            callback_data=f"سڕینەوەی ئاگاداری",
         ),
         InlineKeyboardButton(
-            text=_["CLOSE_BUTTON"], callback_data=f"close"
+            text=_["CLOSE_BUTTON"], callback_data=f"داخستن"
         ),
     )
     return keyboard, count
@@ -171,13 +171,13 @@ async def play_playlist(client, CallbackQuery, _):
             user_name,
             CallbackQuery.message.chat.id,
             video,
-            streamtype="playlist",
+            streamtype="لیستی پەخشکراوەکان",
         )
     except Exception as e:
         ex_type = type(e).__name__
         err = (
             e
-            if ex_type == "AssistantErr"
+            if ex_type == "یارمەتیدەر"
             else _["general_3"].format(ex_type)
         )
         return await mystic.edit_text(err)
@@ -217,9 +217,9 @@ async def add_playlist(client, CallbackQuery, _):
     ) = await YouTube.details(videoid, True)
     title = (title[:50]).title()
     plist = {
-        "videoid": vidid,
-        "title": title,
-        "duration": duration_min,
+        "ناسنامەی ڤیدیۆ": vidid,
+        "ناونیشان": title,
+        "ماوەکەی": duration_min,
     }
     await save_playlist(user_id, videoid, plist)
     try:
@@ -261,7 +261,7 @@ async def del_plist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex("delete_whole_playlist") & ~BANNED_USERS
+    filters.regex("سڕینەوەی هەموو لیستی پەخشکراو") & ~BANNED_USERS
 )
 @languageCB
 async def del_whole_playlist(client, CallbackQuery, _):
@@ -272,7 +272,7 @@ async def del_whole_playlist(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex("get_playlist_playmode") & ~BANNED_USERS
+    filters.regex("بە دەست هێنانی دۆخی لیستی پەخشکردن") & ~BANNED_USERS
 )
 @languageCB
 async def get_playlist_playmode_(client, CallbackQuery, _):
@@ -287,7 +287,7 @@ async def get_playlist_playmode_(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex("delete_warning") & ~BANNED_USERS
+    filters.regex("سڕینەوەی ئاگاداری") & ~BANNED_USERS
 )
 @languageCB
 async def delete_warning_message(client, CallbackQuery, _):
@@ -301,7 +301,7 @@ async def delete_warning_message(client, CallbackQuery, _):
     )
 
 
-@app.on_callback_query(filters.regex("home_play") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("گەڕانەوە بۆ سەرەتا") & ~BANNED_USERS)
 @languageCB
 async def home_play_(client, CallbackQuery, _):
     try:
@@ -315,7 +315,7 @@ async def home_play_(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex("del_back_playlist") & ~BANNED_USERS
+    filters.regex("سڕینەوەی لیستی پەخشکراوەکان") & ~BANNED_USERS
 )
 @languageCB
 async def del_back_playlist(client, CallbackQuery, _):
