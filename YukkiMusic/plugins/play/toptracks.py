@@ -26,7 +26,7 @@ loop = asyncio.get_running_loop()
 
 
 @app.on_callback_query(
-    filters.regex("get_playmarkup") & ~BANNED_USERS
+    filters.regex("بە دەستھێنانی نیشانەکردنی پەخشکردن") & ~BANNED_USERS
 )
 @languageCB
 async def get_play_markup(client, CallbackQuery, _):
@@ -41,7 +41,7 @@ async def get_play_markup(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex("get_top_playlists") & ~BANNED_USERS
+    filters.regex("بە دەستھێنانی بەرزترین لیستی پەخشکراو") & ~BANNED_USERS
 )
 @languageCB
 async def get_topz_playlists(client, CallbackQuery, _):
@@ -55,7 +55,7 @@ async def get_topz_playlists(client, CallbackQuery, _):
     )
 
 
-@app.on_callback_query(filters.regex("SERVERTOP") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("سێرڤەرە بەرزەکان") & ~BANNED_USERS)
 @languageCB
 async def server_to_play(client, CallbackQuery, _):
     chat_id = CallbackQuery.message.chat.id
@@ -73,11 +73,11 @@ async def server_to_play(client, CallbackQuery, _):
         )
     )
     upl = failed_top_markup(_)
-    if what == "Global":
+    if what == "جیھانی":
         stats = await get_global_tops()
-    elif what == "Group":
+    elif what == "گرووپ":
         stats = await get_particulars(chat_id)
-    elif what == "Personal":
+    elif what == "کەسی":
         stats = await get_userss(CallbackQuery.from_user.id)
     if not stats:
         return await mystic.edit(
@@ -87,7 +87,7 @@ async def server_to_play(client, CallbackQuery, _):
     def get_stats():
         results = {}
         for i in stats:
-            top_list = stats[i]["spot"]
+            top_list = stats[i]["خاڵ"]
             results[str(i)] = top_list
             list_arranged = dict(
                 sorted(
@@ -103,7 +103,7 @@ async def server_to_play(client, CallbackQuery, _):
         details = []
         limit = 0
         for vidid, count in list_arranged.items():
-            if vidid == "telegram":
+            if vidid == "eren":
                 continue
             if limit == 10:
                 break
@@ -130,13 +130,13 @@ async def server_to_play(client, CallbackQuery, _):
             user_name,
             CallbackQuery.message.chat.id,
             video=False,
-            streamtype="playlist",
+            streamtype="لیستی پەخشکراوەکان",
         )
     except Exception as e:
         ex_type = type(e).__name__
         err = (
             e
-            if ex_type == "AssistantErr"
+            if ex_type == "یارمەتیدەر"
             else _["general_3"].format(ex_type)
         )
         return await mystic.edit_text(err)
