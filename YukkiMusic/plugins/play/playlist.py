@@ -177,7 +177,7 @@ async def play_playlist(client, CallbackQuery, _):
         ex_type = type(e).__name__
         err = (
             e
-            if ex_type == "یارمەتیدەر"
+            if ex_type == "یاریدەدەر"
             else _["general_3"].format(ex_type)
         )
         return await mystic.edit_text(err)
@@ -231,7 +231,7 @@ async def add_playlist(client, CallbackQuery, _):
         return
 
 
-@app.on_callback_query(filters.regex("del_playlist") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("سڕینەوەی لیستی پەخشکراوەکان") & ~BANNED_USERS)
 @languageCB
 async def del_plist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
