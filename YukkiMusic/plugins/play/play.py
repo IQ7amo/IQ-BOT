@@ -36,7 +36,7 @@ from YukkiMusic.utils.logger import play_logs
 from YukkiMusic.utils.stream.stream import stream
 
 # Command
-PLAY_COMMAND = get_command("PLAY_COMMAND")
+PLAY_COMMAND = get_command("فەرمانەکانی پەخشکردن")
 
 
 @app.on_message(
@@ -100,9 +100,9 @@ async def play_commnd(
             )
             dur = await Telegram.get_duration(audio_telegram)
             details = {
-                "title": file_name,
-                "link": message_link,
-                "path": file_path,
+                "ناونیشان": file_name,
+                "بەستەر": message_link,
+                "ڕێگا": file_path,
                 "dur": dur,
             }
 
@@ -122,7 +122,7 @@ async def play_commnd(
                 ex_type = type(e).__name__
                 err = (
                     e
-                    if ex_type == "AssistantErr"
+                    if ex_type == "یارمەتیدەر"
                     else _["general_3"].format(ex_type)
                 )
                 return await mystic.edit_text(err)
@@ -150,9 +150,9 @@ async def play_commnd(
             file_name = await Telegram.get_filename(video_telegram)
             dur = await Telegram.get_duration(video_telegram)
             details = {
-                "title": file_name,
-                "link": message_link,
-                "path": file_path,
+                "ناونیشان": file_name,
+                "بەستەر": message_link,
+                "ڕێگا": file_path,
                 "dur": dur,
             }
             try:
@@ -172,7 +172,7 @@ async def play_commnd(
                 ex_type = type(e).__name__
                 err = (
                     e
-                    if ex_type == "AssistantErr"
+                    if ex_type == "یارمەتیدەر"
                     else _["general_3"].format(ex_type)
                 )
                 return await mystic.edit_text(err)
@@ -180,7 +180,7 @@ async def play_commnd(
         return
     elif url:
         if await YouTube.exists(url):
-            if "playlist" in url:
+            if "لیستی پەخشکراوەکان" in url:
                 try:
                     details = await YouTube.playlist(
                         url,
@@ -190,7 +190,7 @@ async def play_commnd(
                 except Exception as e:
                     print(e)
                     return await mystic.edit_text(_["play_3"])
-                streamtype = "playlist"
+                streamtype = "YouTube"
                 plist_type = "yt"
                 if "&" in url:
                     plist_id = (url.split("=")[1]).split("&")[0]
@@ -205,10 +205,10 @@ async def play_commnd(
                     print(e)
                     return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
-                img = details["thumb"]
+                img = details["ئێرە دابگرە"]
                 cap = _["play_11"].format(
-                    details["title"],
-                    details["duration_min"],
+                    details["ناونیشان"],
+                    details["ماوەکەی"],
                 )
         elif await Spotify.valid(url):
             spotify = True
@@ -217,17 +217,17 @@ async def play_commnd(
                 and not config.SPOTIFY_CLIENT_SECRET
             ):
                 return await mystic.edit_text(
-                    "This bot isn't able to play spotify queries. Please ask my owner to enable spotify."
+                    "ئەم بۆتە ناتوانێت سپۆتیفای چالاك بکات، تکایە لە خاوەنی بۆت بپرسە بۆ ئەوەی بتوانیت کاری پێبکەیت."
                 )
-            if "track" in url:
+            if "شوێن" in url:
                 try:
                     details, track_id = await Spotify.track(url)
                 except Exception:
                     return await mystic.edit_text(_["play_3"])
-                streamtype = "youtube"
-                img = details["thumb"]
+                streamtype = "Spotify"
+                img = details["ئێرە دابگرە"]
                 cap = _["play_11"].format(
-                    details["title"], details["duration_min"]
+                    details["ناونیشان"], details["ماوەکەی"]
                 )
             elif "playlist" in url:
                 try:
@@ -270,10 +270,10 @@ async def play_commnd(
                     details, track_id = await Apple.track(url)
                 except Exception:
                     return await mystic.edit_text(_["play_3"])
-                streamtype = "youtube"
-                img = details["thumb"]
+                streamtype = صورة الكهف"
+                img = details["ئێرە دابگرە"]
                 cap = _["play_11"].format(
-                    details["title"], details["duration_min"]
+                    details["ناونیشان"], details["ماوەکەی"]
                 )
             elif "playlist" in url:
                 spotify = True
@@ -295,21 +295,21 @@ async def play_commnd(
             except Exception as e:
                 return await mystic.edit_text(_["play_3"])
             streamtype = "youtube"
-            img = details["thumb"]
+            img = details["ئێرە دابگره"]
             cap = _["play_11"].format(
-                details["title"], details["duration_min"]
+                details["ناونیشان"], details["ماوەکەی"]
             )
         elif await SoundCloud.valid(url):
             try:
                 details, track_path = await SoundCloud.download(url)
             except Exception:
                 return await mystic.edit_text(_["play_3"])
-            duration_sec = details["duration_sec"]
+            duration_sec = details["ماوەکەی بە چرکە"]
             if duration_sec > config.DURATION_LIMIT:
                 return await mystic.edit_text(
                     _["play_6"].format(
                         config.DURATION_LIMIT_MIN,
-                        details["duration_min"],
+                        details["ماوەکەی بە خوولەك"],
                     )
                 )
             try:
@@ -328,7 +328,7 @@ async def play_commnd(
                 ex_type = type(e).__name__
                 err = (
                     e
-                    if ex_type == "AssistantErr"
+                    if ex_type == "یارمەتیدەر"
                     else _["general_3"].format(ex_type)
                 )
                 return await mystic.edit_text(err)
@@ -338,11 +338,11 @@ async def play_commnd(
                 await Yukki.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(
-                    "There's an issue with the bot. Please report it to my owner and ask them to check logger group."
+                    "کێشەیەك هەیە لەگەڵ بۆتەکە تکایە بۆ خاوەنەکەم ڕاپۆڕت بکەن و داوایان لێ بکەن کە پشکنینی چوونەژورەوەی گرور بکەن."
                 )
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    "Please turn on Voice Chat.. Bot is not able to stream urls..",
+                    ". . .تکایە چاتی دەنگی بکەوە، بۆتەکە ناتوانێت ئەو بەستەرە پەخشبکات",
                 )
             except Exception as e:
                 return await mystic.edit_text(
@@ -366,7 +366,7 @@ async def play_commnd(
                 ex_type = type(e).__name__
                 err = (
                     e
-                    if ex_type == "AssistantErr"
+                    if ex_type == "یارمەتیدەر"
                     else _["general_3"].format(ex_type)
                 )
                 return await mystic.edit_text(err)
@@ -383,23 +383,23 @@ async def play_commnd(
         slider = True
         query = message.text.split(None, 1)[1]
         if "-v" in query:
-            query = query.replace("-v", "")
+            query = query.replace("/v", "")
         try:
             details, track_id = await YouTube.track(query)
         except Exception:
             return await mystic.edit_text(_["play_3"])
         streamtype = "youtube"
-    if str(playmode) == "Direct":
+    if str(playmode) == "چالاککردن":
         if not plist_type:
-            if details["duration_min"]:
+            if details["ماوەکەی"]:
                 duration_sec = time_to_seconds(
-                    details["duration_min"]
+                    details["ماوەکەی"]
                 )
                 if duration_sec > config.DURATION_LIMIT:
                     return await mystic.edit_text(
                         _["play_6"].format(
                             config.DURATION_LIMIT_MIN,
-                            details["duration_min"],
+                            details["ماوەکەی"],
                         )
                     )
             else:
@@ -407,9 +407,9 @@ async def play_commnd(
                     _,
                     track_id,
                     user_id,
-                    "v" if video else "a",
-                    "c" if channel else "g",
-                    "f" if fplay else "d",
+                    "v" if video else "v",
+                    "c" if channel else "c",
+                    "f" if fplay else "f",
                 )
                 return await mystic.edit_text(
                     _["play_15"],
@@ -433,7 +433,7 @@ async def play_commnd(
             ex_type = type(e).__name__
             err = (
                 e
-                if ex_type == "AssistantErr"
+                if ex_type == "یارمەتیدەر"
                 else _["general_3"].format(ex_type)
             )
             return await mystic.edit_text(err)
@@ -441,7 +441,7 @@ async def play_commnd(
         return await play_logs(message, streamtype=streamtype)
     else:
         if plist_type:
-            ran_hash = "".join(
+            ran_hash = "pjoin".join(
                 random.choices(
                     string.ascii_uppercase + string.digits, k=10
                 )
@@ -452,8 +452,8 @@ async def play_commnd(
                 ran_hash,
                 message.from_user.id,
                 plist_type,
-                "c" if channel else "g",
-                "f" if fplay else "d",
+                "c" if channel else "c",
+                "f" if fplay else "f",
             )
             await mystic.delete()
             await message.reply_photo(
@@ -472,28 +472,28 @@ async def play_commnd(
                     message.from_user.id,
                     query,
                     0,
-                    "c" if channel else "g",
-                    "f" if fplay else "d",
+                    "c" if channel else "c",
+                    "f" if fplay else "f",
                 )
                 await mystic.delete()
                 await message.reply_photo(
-                    photo=details["thumb"],
+                    photo=details["ئێرە دابگرە"],
                     caption=_["play_11"].format(
-                        details["title"].title(),
-                        details["duration_min"],
+                        details["ناونیشان"].title(),
+                        details["ماوەکەی"],
                     ),
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
                 return await play_logs(
-                    message, streamtype=f"Searched on Youtube"
+                    message, streamtype=f"گەڕان لەسەر یوتوب"
                 )
             else:
                 buttons = track_markup(
                     _,
                     track_id,
                     message.from_user.id,
-                    "c" if channel else "g",
-                    "f" if fplay else "d",
+                    "c" if channel else "c",
+                    "f" if fplay else "f",
                 )
                 await mystic.delete()
                 await message.reply_photo(
@@ -502,7 +502,7 @@ async def play_commnd(
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
                 return await play_logs(
-                    message, streamtype=f"URL Searched Inline"
+                    message, streamtype="
                 )
 
 
