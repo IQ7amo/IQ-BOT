@@ -41,8 +41,8 @@ from YukkiMusic.utils.inline.stats import (back_stats_buttons,
 loop = asyncio.get_running_loop()
 
 # Commands
-GSTATS_COMMAND = get_command("GSTATS_COMMAND")
-STATS_COMMAND = get_command("STATS_COMMAND")
+GSTATS_COMMAND = get_command("فەرمانەکانی پیشاندانی خوزمەتگوزاری تۆڕەکان")
+STATS_COMMAND = get_command(" فەرمانەکانی ئامارەکان")
 
 
 @app.on_message(
@@ -80,7 +80,7 @@ async def gstats_global(client, message: Message, _):
     def get_stats():
         results = {}
         for i in stats:
-            top_list = stats[i]["spot"]
+            top_list = stats[i]["خاڵ"]
             results[str(i)] = top_list
             list_arranged = dict(
                 sorted(
@@ -115,7 +115,7 @@ async def gstats_global(client, message: Message, _):
         vidid,
     ) = await YouTube.details(videoid, True)
     title = title.title()
-    final = f"Top Most Played Track on {MUSIC_BOT_NAME}\n\n**Title:** {title}\n\nPlayed** {co} **times"
+    final = f"سەروترین تراکی پەخشکراو {MUSIC_BOT_NAME}\n\n**ناونیشان:** {title}\n\nکاردەکات** {co} **کات"
     upl = get_stats_markup(
         _, True if message.from_user.id in SUDOERS else False
     )
@@ -128,7 +128,7 @@ async def gstats_global(client, message: Message, _):
     await mystic.delete()
 
 
-@app.on_callback_query(filters.regex("GetStatsNow") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("ئێستا ئامارەکە وەربگرە") & ~BANNED_USERS)
 @languageCB
 async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
     chat_id = CallbackQuery.message.chat.id
@@ -142,17 +142,17 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
     mystic = await CallbackQuery.edit_message_text(
         _["gstats_3"].format(
             f"of {CallbackQuery.message.chat.title}"
-            if what == "Here"
+            if what == "لێرە"
             else what
         )
     )
-    if what == "Tracks":
+    if what == "تراك":
         stats = await get_global_tops()
-    elif what == "Chats":
+    elif what == "نامەکان":
         stats = await get_top_chats()
-    elif what == "Users":
+    elif what == "بەکارهێنەرەکان":
         stats = await get_topp_users()
-    elif what == "Here":
+    elif what == "لێرە":
         stats = await get_particulars(chat_id)
     if not stats:
         await asyncio.sleep(1)
@@ -164,8 +164,8 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
         for i in stats:
             top_list = (
                 stats[i]
-                if what in ["Chats", "Users"]
-                else stats[i]["spot"]
+                if what in ["نامەکان", "بەکارهێنەرەکان"]
+                else stats[i]["خاڵ"]
             )
             results[str(i)] = top_list
             list_arranged = dict(
