@@ -20,7 +20,7 @@ from YukkiMusic.utils import bot_sys_stats
 from YukkiMusic.utils.decorators.language import language
 
 ### Commands
-PING_COMMAND = get_command("PING_COMMAND")
+PING_COMMAND = get_command("فەرمانی پینگ")
 
 
 @app.on_message(
