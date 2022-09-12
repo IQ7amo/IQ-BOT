@@ -18,7 +18,7 @@ from YukkiMusic.misc import db
 from YukkiMusic.utils import AdminRightsCheck, seconds_to_min
 
 # Commands
-SEEK_COMMAND = get_command("SEEK_COMMAND")
+SEEK_COMMAND = get_command("فەرمانی گەڕان")
 
 
 @app.on_message(
@@ -40,7 +40,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
     duration_seconds = int(playing[0]["seconds"])
     if duration_seconds == 0:
         return await message.reply_text(_["admin_30"])
-    file_path = playing[0]["file"]
+    file_path = playing[0]["فایل"]
     if "index_" in file_path or "live_" in file_path:
         return await message.reply_text(_["admin_30"])
     duration_played = int(playing[0]["played"])
@@ -66,7 +66,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
         to_seek = duration_played + duration_to_skip + 1
     mystic = await message.reply_text(_["admin_32"])
     if "vid_" in file_path:
-        n, file_path = await YouTube.video(playing[0]["vidid"], True)
+        n, file_path = await YouTube.video(playing[0]["ناسنامەی ڤیدیۆ"], True)
         if n == 0:
             return await message.reply_text(_["admin_30"])
     try:
@@ -75,14 +75,14 @@ async def seek_comm(cli, message: Message, _, chat_id):
             file_path,
             seconds_to_min(to_seek),
             duration,
-            playing[0]["streamtype"],
+            playing[0]["جۆری پەخش"],
         )
     except:
         return await mystic.edit_text(_["admin_34"])
     if message.command[0][-2] == "c":
-        db[chat_id][0]["played"] -= duration_to_skip
+        db[chat_id][0]["کاری کرد"] -= duration_to_skip
     else:
-        db[chat_id][0]["played"] += duration_to_skip
+        db[chat_id][0]["کاری کرد"] += duration_to_skip
     await mystic.edit_text(
         _["admin_33"].format(seconds_to_min(to_seek))
     )
