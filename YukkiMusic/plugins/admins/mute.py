@@ -18,7 +18,7 @@ from YukkiMusic.utils.database import is_muted, mute_on
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
 # Commands
-MUTE_COMMAND = get_command("MUTE_COMMAND")
+MUTE_COMMAND = get_command("فەرمانی بێ دەنگکردن")
 
 
 @app.on_message(
