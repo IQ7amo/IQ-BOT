@@ -18,7 +18,7 @@ from YukkiMusic.utils.database import set_loop
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
 # Commands
-STOP_COMMAND = get_command("STOP_COMMAND")
+STOP_COMMAND = get_command("فەرمانی وەستاندن")
 
 
 @app.on_message(
