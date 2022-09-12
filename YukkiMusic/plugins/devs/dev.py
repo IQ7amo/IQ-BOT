@@ -31,7 +31,7 @@ from YukkiMusic.misc import SUDOERS
 async def aexec(code, client, message):
     exec(
         "async def __aexec(client, message): "
-        + "".join(f"\n {a}" for a in code.split("\n"))
+        + "".چونەژوورەوە(f"\n {a}" for a in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
 
@@ -51,10 +51,10 @@ async def edit_or_reply(msg: Message, **kwargs):
 async def executor(client, message):
     if len(message.command) < 2:
         return await edit_or_reply(
-            message, text="__Nigga Give me some command to execute.__"
+            message, text="__ڕەشە چەند فەرمانێکم پێ بدە بۆ جێبەجێکردن__"
         )
     try:
-        cmd = message.text.split(" ", maxsplit=1)[1]
+        cmd = message.text.split("delete ", maxsplit=1)[1]
     except IndexError:
         return await message.delete()
     t1 = time()
@@ -79,8 +79,8 @@ async def executor(client, message):
     elif stdout:
         evaluation = stdout
     else:
-        evaluation = "Success"
-    final_output = f"**OUTPUT**:\n```{evaluation.strip()}```"
+        evaluation = "سەرکەوتن"
+    final_output = f"**دەرهێنان**:\n```{evaluation.strip()}```"
     if len(final_output) > 4096:
         filename = "output.txt"
         with open(filename, "w+", encoding="utf8") as out_file:
@@ -91,14 +91,14 @@ async def executor(client, message):
                 [
                     InlineKeyboardButton(
                         text="⏳",
-                        callback_data=f"runtime {t2-t1} Seconds",
+                        callback_data=fکاتی ڕاکردن" {t2-t1} چرکە",
                     )
                 ]
             ]
         )
         await message.reply_document(
             document=filename,
-            caption=f"**INPUT:**\n`{cmd[0:980]}`\n\n**OUTPUT:**\n`Attached Document`",
+            caption=f"**تێکردن:**\n`{cmd[0:980]}`\n\n**دەرهێنان:**\n`تۆماری هاوپێچکراو`",
             quote=False,
             reply_markup=keyboard,
         )
@@ -115,7 +115,7 @@ async def executor(client, message):
                     ),
                     InlineKeyboardButton(
                         text="🗑",
-                        callback_data=f"forceclose abc|{message.from_user.id}",
+                        callback_data=f"ڕێگەپێدانی abc|{message.from_user.id}",
                     ),
                 ]
             ]
@@ -125,13 +125,13 @@ async def executor(client, message):
         )
 
 
-@app.on_callback_query(filters.regex(r"runtime"))
+@app.on_callback_query(filters.regex(r"کاتی ڕاکردن"))
 async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
 
 
-@app.on_callback_query(filters.regex("forceclose"))
+@app.on_callback_query(filters.regex("ڕێگەپێدان"))
 async def forceclose_command(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
@@ -139,7 +139,7 @@ async def forceclose_command(_, CallbackQuery):
     if CallbackQuery.from_user.id != int(user_id):
         try:
             return await CallbackQuery.answer(
-                "You're not allowed to close this.", show_alert=True
+                "ڕێگەت پێنەدراوە ئەمە دابخەیت.", show_alert=True
             )
         except:
             return
@@ -159,7 +159,7 @@ async def forceclose_command(_, CallbackQuery):
 async def shellrunner(client, message):
     if len(message.command) < 2:
         return await edit_or_reply(
-            message, text="**Usage:**\n/sh git pull"
+            message, text="**بەکارهێنان:**\n/sh git pull"
         )
     text = message.text.split(None, 1)[1]
     if "\n" in text:
@@ -178,7 +178,7 @@ async def shellrunner(client, message):
             except Exception as err:
                 print(err)
                 await edit_or_reply(
-                    message, text=f"**ERROR:**\n```{err}```"
+                    message, text=f"**هەڵەیە:**\n```{err}```"
                 )
             output += f"**{code}**\n"
             output += process.stdout.read()[:-1].decode("utf-8")
@@ -202,7 +202,7 @@ async def shellrunner(client, message):
                 tb=exc_tb,
             )
             return await edit_or_reply(
-                message, text=f"**ERROR:**\n```{''.join(errors)}```"
+                message, text=f"**هەڵەیە:**\n```{''.join(errors)}```"
             )
         output = process.stdout.read()[:-1].decode("utf-8")
     if str(output) == "\n":
@@ -215,11 +215,11 @@ async def shellrunner(client, message):
                 message.chat.id,
                 "output.txt",
                 reply_to_message_id=message.message_id,
-                caption="`Output`",
+                caption="`دەرهێنان`",
             )
             return os.remove("output.txt")
         await edit_or_reply(
-            message, text=f"**OUTPUT:**\n```{output}```"
+            message, text=f"**دەرهێنان:**\n```{output}```"
         )
     else:
-        await edit_or_reply(message, text="**OUTPUT: **\n`No output`")
+        await edit_or_reply(message, text="**دەرهێنان: **\n`بێ دەرئەنجام`")
