@@ -18,7 +18,7 @@ from YukkiMusic.utils.database.memorydatabase import (get_loop,
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
 # Commands
-LOOP_COMMAND = get_command("LOOP_COMMAND")
+LOOP_COMMAND = get_command("فەرمانی ئەڵقە")
 
 
 @app.on_message(
@@ -49,12 +49,12 @@ async def admins(cli, message: Message, _, chat_id):
             )
         else:
             return await message.reply_text(_["admin_26"])
-    elif state.lower() == "enable":
+    elif state.lower() == "چالاککردن":
         await set_loop(chat_id, 10)
         return await message.reply_text(
             _["admin_25"].format(message.from_user.first_name, 10)
         )
-    elif state.lower() == "disable":
+    elif state.lower() == "نا چالاککردن":
         await set_loop(chat_id, 0)
         return await message.reply_text(_["admin_27"])
     else:
