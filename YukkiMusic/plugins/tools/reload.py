@@ -22,8 +22,8 @@ from YukkiMusic.utils.decorators import (ActualAdminCB, AdminActual,
 from YukkiMusic.utils.formatters import alpha_to_int
 
 ### Multi-Lang Commands
-RELOAD_COMMAND = get_command("RELOAD_COMMAND")
-RESTART_COMMAND = get_command("RESTART_COMMAND")
+RELOAD_COMMAND = get_command("فەرمانی نوێکردنەوە")
+RESTART_COMMAND = get_command("فەرمانی دەستپێکردنەوە")
 
 
 @app.on_message(
@@ -37,7 +37,7 @@ async def reload_admin_cache(client, message: Message, _):
     try:
         chat_id = message.chat.id
         admins = await app.get_chat_members(
-            chat_id, filter="administrators"
+            chat_id, filter="بەڕێوبەرەکان"
         )
         authusers = await get_authuser_names(chat_id)
         adminlist[chat_id] = []
@@ -50,7 +50,7 @@ async def reload_admin_cache(client, message: Message, _):
         await message.reply_text(_["admin_20"])
     except:
         await message.reply_text(
-            "Failed to reload admincache. Make sure Bot is admin in your chat."
+            "سەرکەوتوو نەبوو لە نوێکردنەوەی بەڕێوبەری خەزنکراو. دڵنیابە لەوەی بۆت بەڕێوەبەرە لە چاتەکەتدا"
         )
 
 
@@ -63,7 +63,7 @@ async def reload_admin_cache(client, message: Message, _):
 @AdminActual
 async def restartbot(client, message: Message, _):
     mystic = await message.reply_text(
-        f"Please Wait.. Restarting {MUSIC_BOT_NAME} for your chat.."
+        f"تکایە چاوڕێ بکە بۆ دەستپێکردنەوەی {MUSIC_BOT_NAME} بۆ چاتەکەت.."
     )
     await asyncio.sleep(1)
     try:
@@ -83,11 +83,11 @@ async def restartbot(client, message: Message, _):
         except:
             pass
     return await mystic.edit_text(
-        "Successfully restarted. Try playing now.."
+        "بە سەرکەوتوویی دەستیپێکردەوە  ئێستا هەوڵبدە بۆ کارپێکردنی"
     )
 
 
-@app.on_callback_query(filters.regex("close") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("داخستن") & ~BANNED_USERS)
 async def close_menu(_, CallbackQuery):
     try:
         await CallbackQuery.message.delete()
@@ -96,7 +96,7 @@ async def close_menu(_, CallbackQuery):
         return
 
 
-@app.on_callback_query(filters.regex("close") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("داخستن") & ~BANNED_USERS)
 async def close_menu(_, CallbackQuery):
     try:
         await CallbackQuery.message.delete()
@@ -106,7 +106,7 @@ async def close_menu(_, CallbackQuery):
 
 
 @app.on_callback_query(
-    filters.regex("stop_downloading") & ~BANNED_USERS
+    filters.regex("وەستانی دابەزاندن") & ~BANNED_USERS
 )
 @ActualAdminCB
 async def stop_download(client, CallbackQuery: CallbackQuery, _):
@@ -114,11 +114,11 @@ async def stop_download(client, CallbackQuery: CallbackQuery, _):
     task = lyrical.get(message_id)
     if not task:
         return await CallbackQuery.answer(
-            "Downloading already Completed.", show_alert=True
+            "داگرتن لە ئێستاوە تەواو بووە.", show_alert=True
         )
     if task.done() or task.cancelled():
         return await CallbackQuery.answer(
-            "Downloading already Completed or Cancelled.",
+            "داگرتنی تەواوکراو یان هەڵوەشاندنەوە.",
             show_alert=True,
         )
     if not task.done():
@@ -129,15 +129,15 @@ async def stop_download(client, CallbackQuery: CallbackQuery, _):
             except:
                 pass
             await CallbackQuery.answer(
-                "Downloading Cancelled", show_alert=True
+                "داگرتنی هەڵوەشاندنەوە", show_alert=True
             )
             return await CallbackQuery.edit_message_text(
-                f"Download Cancelled by {CallbackQuery.from_user.mention}"
+                f"داگرتن هەڵوەشیندرایەوە لە لایەن {CallbackQuery.from_user.mention}"
             )
         except:
             return await CallbackQuery.answer(
-                "Failed to stop the Downloading.", show_alert=True
+                "سەرکەوتوو نەبوو لە وەستاندنی داگرتنەکە.", show_alert=True
             )
     await CallbackQuery.answer(
-        "Failed to recognize the running task", show_alert=True
+        "شکستی هێنا لە ناسینەوەی ئەرکی ڕاکردن", show_alert=True
     )
