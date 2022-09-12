@@ -18,7 +18,7 @@ from YukkiMusic.utils.database import is_music_playing, music_off
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
 # Commands
-PAUSE_COMMAND = get_command("PAUSE_COMMAND")
+PAUSE_COMMAND = get_command("فەرمانی وەستان")
 
 
 @app.on_message(
