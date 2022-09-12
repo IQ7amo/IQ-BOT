@@ -24,7 +24,7 @@ from YukkiMusic.utils.stream.autoclear import auto_clean
 from YukkiMusic.utils.thumbnails import gen_thumb
 
 # Commands
-SKIP_COMMAND = get_command("SKIP_COMMAND")
+SKIP_COMMAND = get_command("فەرمانی تێپەڕاندن")
 
 
 @app.on_message(
@@ -107,12 +107,12 @@ async def skip(cli, message: Message, _, chat_id):
                 return await Yukki.stop_stream(chat_id)
             except:
                 return
-    queued = check[0]["file"]
-    title = (check[0]["title"]).title()
-    user = check[0]["by"]
-    streamtype = check[0]["streamtype"]
-    videoid = check[0]["vidid"]
-    status = True if str(streamtype) == "video" else None
+    queued = check[0]["فایل"]
+    title = (check[0]["ناونیشان"]).title()
+    user = check[0]["لەلایەن"]
+    streamtype = check[0]["جۆری پەخش"]
+    videoid = check[0]["ناسنامەی ڤیدیۆ"]
+    status = True if str(streamtype) == "ڤیدیۆ" else None
     if "live_" in queued:
         n, link = await YouTube.video(videoid, True)
         if n == 0:
@@ -134,7 +134,7 @@ async def skip(cli, message: Message, _, chat_id):
             reply_markup=InlineKeyboardMarkup(button),
         )
         db[chat_id][0]["mystic"] = run
-        db[chat_id][0]["markup"] = "tg"
+        db[chat_id][0]["نیشانەکردن"] = "tg"
     elif "vid_" in queued:
         mystic = await message.reply_text(
             _["call_10"], disable_web_page_preview=True
@@ -163,7 +163,7 @@ async def skip(cli, message: Message, _, chat_id):
             reply_markup=InlineKeyboardMarkup(button),
         )
         db[chat_id][0]["mystic"] = run
-        db[chat_id][0]["markup"] = "stream"
+        db[chat_id][0]["نیشانەکردن"] = "پەخش"
         await mystic.delete()
     elif "index_" in queued:
         try:
@@ -177,7 +177,7 @@ async def skip(cli, message: Message, _, chat_id):
             reply_markup=InlineKeyboardMarkup(button),
         )
         db[chat_id][0]["mystic"] = run
-        db[chat_id][0]["markup"] = "tg"
+        db[chat_id][0]["نیشانەکردن"] = "tg"
     else:
         try:
             await Yukki.skip_stream(chat_id, queued, video=status)
@@ -187,7 +187,7 @@ async def skip(cli, message: Message, _, chat_id):
             button = telegram_markup(_, chat_id)
             run = await message.reply_photo(
                 photo=config.TELEGRAM_AUDIO_URL
-                if str(streamtype) == "audio"
+                if str(streamtype) == "دەنگ"
                 else config.TELEGRAM_VIDEO_URL,
                 caption=_["stream_3"].format(
                     title, check[0]["dur"], user
@@ -195,12 +195,12 @@ async def skip(cli, message: Message, _, chat_id):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
-        elif videoid == "soundcloud":
+            db[chat_id][0]["نیشانەکردن"] = "tg"
+        elif videoid == "هەوری دەنگ":
             button = telegram_markup(_, chat_id)
             run = await message.reply_photo(
                 photo=config.SOUNCLOUD_IMG_URL
-                if str(streamtype) == "audio"
+                if str(streamtype) == "دەنگ"
                 else config.TELEGRAM_VIDEO_URL,
                 caption=_["stream_3"].format(
                     title, check[0]["dur"], user
@@ -208,7 +208,7 @@ async def skip(cli, message: Message, _, chat_id):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
+            db[chat_id][0]["نیشانەکردن"] = "tg"
         else:
             button = stream_markup(_, videoid, chat_id)
             img = await gen_thumb(videoid)
@@ -221,4 +221,4 @@ async def skip(cli, message: Message, _, chat_id):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "stream"
+            db[chat_id][0]["نیشانەکردن"] = "پەخش"
