@@ -22,7 +22,7 @@ from YukkiMusic import app
 from YukkiMusic.utils.decorators.language import language
 
 ###Commands
-LYRICS_COMMAND = get_command("LYRICS_COMMAND")
+LYRICS_COMMAND = get_command("فەرمانی lyrics")
 
 api_key = "Vd9FvPMOKWfsKJNG9RbZnItaTNIRFzVyyXFdrGHONVsGqHcHBoj3AI3sIlNuqzuf0ZNG8uLcF9wAd5DXBBnUzA"
 y = lg.Genius(
