@@ -28,7 +28,7 @@ def lanuages_keyboard(_):
             (
                 InlineKeyboardButton(
                     text=languages_present[i],
-                    callback_data=f"languages:{i}",
+                    callback_data=f"زمانەکان:{i}",
                 )
             )
             for i in languages_present
@@ -36,17 +36,17 @@ def lanuages_keyboard(_):
     )
     keyboard.row(
         InlineKeyboardButton(
-            text=_["BACK_BUTTON"],
+            text=_["گەڕانەوە"],
             callback_data=f"settingsback_helper",
         ),
         InlineKeyboardButton(
-            text=_["CLOSE_BUTTON"], callback_data=f"close"
+            text=_["داخستن"], callback_data=f"close"
         ),
     )
     return keyboard
 
 
-LANGUAGE_COMMAND = get_command("LANGUAGE_COMMAND")
+LANGUAGE_COMMAND = get_command("فەرمانی زمان")
 
 
 @app.on_message(
@@ -78,7 +78,7 @@ async def lanuagecb(client, CallbackQuery, _):
 
 
 @app.on_callback_query(
-    filters.regex(r"languages:(.*?)") & ~BANNED_USERS
+    filters.regex(r"زمانەکان:(.*?)") & ~BANNED_USERS
 )
 @ActualAdminCB
 async def language_markup(client, CallbackQuery, _):
@@ -86,16 +86,16 @@ async def language_markup(client, CallbackQuery, _):
     old = await get_lang(CallbackQuery.message.chat.id)
     if str(old) == str(langauge):
         return await CallbackQuery.answer(
-            "You're already on same language", show_alert=True
+            "تۆ هەر ئێستا لەسەر هەمان زمانیت.", show_alert=True
         )
     try:
         _ = get_string(langauge)
         await CallbackQuery.answer(
-            "Successfully changed your language.", show_alert=True
+            "بە سەرکەوتوویی زمانەکەت گۆڕدرا", show_alert=True
         )
     except:
         return await CallbackQuery.answer(
-            "Failed to change language or Language under update.",
+            "سەرکەوتوو نەبوو لە گۆڕینی زمان یان زمان لە ژێر نوێکردنەوە.",
             show_alert=True,
         )
     await set_lang(CallbackQuery.message.chat.id, langauge)
