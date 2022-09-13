@@ -22,18 +22,18 @@ AUTOEND_COMMAND = get_command("AUTOEND_COMMAND")
 
 @app.on_message(filters.command(AUTOEND_COMMAND) & SUDOERS)
 async def auto_end_stream(client, message):
-    usage = "**Usage:**\n\n/autoend [enable|disable]"
+    usage = "Usage:\n\n/کۆتایی خۆکارo[چالاککردن|نا چالاککردن]"
     if len(message.command) != 2:
         return await message.reply_text(usage)
     state = message.text.split(None, 1)[1].strip()
     state = state.lower()
-    if state == "enable":
+    if state == "چالاککردن":
         await autoend_on()
         await message.reply_text(
-            "Auto End Stream Enabled.\n\nBot will leave voice chat automatically after 3 mins if no one is listening with a warning message.."
+            "پەخشی کۆتایی خۆکار چالاککراوە\n\nبۆت بە شێوەیەکی ئۆتۆماتیکی دوای 3 خولەک قسەکردنی دەنگی جێدەهێڵێت ئەگەر هیچ کەسێك گوێ لە پەیامێکی ئاگادارکردنەوە نەگریت"
         )
-    elif state == "disable":
+    elif state == "نا چالاککردن":
         await autoend_off()
-        await message.reply_text("Auto End Stream Disabled.")
+        await message.reply_text("پەخشی کۆتایی خۆکار ناچالاککراوە")
     else:
         await message.reply_text(usage)
