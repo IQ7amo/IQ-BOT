@@ -16,7 +16,7 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import set_video_limit
 from YukkiMusic.utils.decorators.language import language
 
-VIDEOLIMIT_COMMAND = get_command("VIDEOLIMIT_COMMAND")
+VIDEOLIMIT_COMMAND = get_command("فەرمانی سنوورداری ڤیدیۆ")
 
 
 @app.on_message(filters.command(VIDEOLIMIT_COMMAND) & SUDOERS)
@@ -27,7 +27,7 @@ async def set_video_limit_kid(client, message: Message, _):
         return await message.reply_text(usage)
     message.chat.id
     state = message.text.split(None, 1)[1].strip()
-    if state.lower() == "disable":
+    if state.lower() == "نا چالاککردن":
         limit = 0
         await set_video_limit(limit)
         return await message.reply_text(_["vid_4"])
