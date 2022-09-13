@@ -40,59 +40,59 @@ async def varsFunc(client, message):
     cm = config.CLEANMODE_DELETE_MINS
     auto_sug = config.AUTO_SUGGESTION_TIME
     if config.AUTO_LEAVING_ASSISTANT == str(True):
-        ass = "Yes"
+        ass = "بەڵێ"
     else:
-        ass = "No"
+        ass = "نەخێر"
     if config.PRIVATE_BOT_MODE == str(True):
-        pvt = "Yes"
+        pvt = "بەڵێ"
     else:
-        pvt = "No"
+        pvt = "نەخێر"
     if config.AUTO_SUGGESTION_MODE == str(True):
-        a_sug = "Yes"
+        a_sug = "بەڵێ"
     else:
-        a_sug = "No"
+        a_sug = "نەخێر"
     if config.AUTO_DOWNLOADS_CLEAR == str(True):
-        down = "Yes"
+        down = "بەڵێ"
     else:
-        down = "No"
+        down = "نەخێر"
 
     if not config.GITHUB_REPO:
-        git = "No"
+        git = "نەخێر"
     else:
         git = f"[Repo]({config.GITHUB_REPO})"
     if not config.START_IMG_URL:
-        start = "No"
+        start = "نەخێر"
     else:
         start = f"[Image]({config.START_IMG_URL})"
     if not config.SUPPORT_CHANNEL:
-        s_c = "No"
+        s_c = "نەخێر"
     else:
         s_c = f"[Channel]({config.SUPPORT_CHANNEL})"
     if not config.SUPPORT_GROUP:
-        s_g = "No"
+        s_g = "نەخێر"
     else:
         s_g = f"[Group]({config.SUPPORT_GROUP})"
     if not config.GIT_TOKEN:
-        token = "No"
+        token = "نەخێر"
     else:
-        token = "Yes"
+        token = "بەڵێ"
     if (
         not config.SPOTIFY_CLIENT_ID
         and not config.SPOTIFY_CLIENT_SECRET
     ):
-        sotify = "No"
+        sotify = "نەخێر"
     else:
-        sotify = "Yes"
+        sotify = "بەڵێ"
     owners = [str(ids) for ids in config.OWNER_ID]
-    owner_id = " ,".join(owners)
+    owner_id = " 833360381,".join(owners)
     tg_aud = convert_bytes(config.TG_AUDIO_FILESIZE_LIMIT)
     tg_vid = convert_bytes(config.TG_VIDEO_FILESIZE_LIMIT)
     text = f"""**MUSIC BOT CONFIG:**
 
 **<u>Basic Vars:</u>**
 `MUSIC_BOT_NAME` : **{bot_name}**
-`DURATION_LIMIT` : **{play_duration} min**
-`SONG_DOWNLOAD_DURATION_LIMIT` :** {song} min**
+`DURATION_LIMIT` : **{play_duration} خولەك**
+`SONG_DOWNLOAD_DURATION_LIMIT` :** {song} خولەك**
 `OWNER_ID` : **{owner_id}**
     
 **<u>Custom Repo Vars:</u>**
@@ -104,15 +104,15 @@ async def varsFunc(client, message):
 
 **<u>Bot Vars:</u>**
 `AUTO_LEAVING_ASSISTANT` : **{ass}**
-`ASSISTANT_LEAVE_TIME` : **{auto_leave} seconds**
+`ASSISTANT_LEAVE_TIME` : **{auto_leave} چرکە**
 `AUTO_SUGGESTION_MODE` :** {a_sug}**
-`AUTO_SUGGESTION_TIME` : **{auto_sug} seconds**
+`AUTO_SUGGESTION_TIME` : **{auto_sug} چرکە**
 `AUTO_DOWNLOADS_CLEAR` : **{down}**
 `PRIVATE_BOT_MODE` : **{pvt}**
-`YOUTUBE_EDIT_SLEEP` : **{yt_sleep} seconds**
-`TELEGRAM_EDIT_SLEEP` :** {tg_sleep} seconds**
+`YOUTUBE_EDIT_SLEEP` : **{yt_sleep} چرکە**
+`TELEGRAM_EDIT_SLEEP` :** {tg_sleep} چرکە**
 `CLEANMODE_MINS` : **{cm} mins**
-`VIDEO_STREAM_LIMIT` : **{v_limit} chats**
+`VIDEO_STREAM_LIMIT` : **{v_limit} نامەکان**
 `SERVER_PLAYLIST_LIMIT` :** {playlist_limit}**
 `PLAYLIST_FETCH_LIMIT` :** {fetch_playlist}**
 
