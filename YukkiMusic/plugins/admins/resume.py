@@ -18,7 +18,7 @@ from YukkiMusic.utils.database import is_music_playing, music_on
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
 # Commands
-RESUME_COMMAND = get_command("RESUME_COMMAND")
+RESUME_COMMAND = get_command("فەرمانی دەستپێکردنەوە")
 
 
 @app.on_message(
