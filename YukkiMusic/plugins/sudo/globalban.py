@@ -27,9 +27,9 @@ from YukkiMusic.utils.database import (add_banned_user,
 from YukkiMusic.utils.decorators.language import language
 
 # Command
-GBAN_COMMAND = get_command("GBAN_COMMAND")
-UNGBAN_COMMAND = get_command("UNGBAN_COMMAND")
-GBANNED_COMMAND = get_command("GBANNED_COMMAND")
+GBAN_COMMAND = get_command("فەرمانی دەرکردنی گشتی")
+UNGBAN_COMMAND = get_command("فەرمانی لادانی دەرکردنی گشتی")
+GBANNED_COMMAND = get_command("فەرمانی دەرکراوە گشتیەکان")
 
 
 @app.on_message(filters.command(GBAN_COMMAND) & SUDOERS)
@@ -59,7 +59,7 @@ async def gbanuser(client, message: Message, _):
     served_chats = []
     chats = await get_served_chats()
     for chat in chats:
-        served_chats.append(int(chat["chat_id"]))
+        served_chats.append(int(chat["ناسنامەی چات"]))
     time_expected = len(served_chats)
     time_expected = get_readable_time(time_expected)
     mystic = await message.reply_text(
@@ -102,7 +102,7 @@ async def gungabn(client, message: Message, _):
     served_chats = []
     chats = await get_served_chats()
     for chat in chats:
-        served_chats.append(int(chat["chat_id"]))
+        served_chats.append(int(chat["ناسنامەی چات"]))
     time_expected = len(served_chats)
     time_expected = get_readable_time(time_expected)
     mystic = await message.reply_text(
