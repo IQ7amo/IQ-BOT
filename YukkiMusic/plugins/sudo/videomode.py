@@ -18,7 +18,7 @@ from YukkiMusic.utils.database import add_off, add_on
 from YukkiMusic.utils.decorators.language import language
 
 # Commands
-VIDEOMODE_COMMAND = get_command("فەرمانی مۆدی ڤیدیۆ")
+VIDEOMODE_COMMAND = get_command("فەرمانی دۆخی ڤیدیۆ")
 
 
 @app.on_message(filters.command(VIDEOMODE_COMMAND) & SUDOERS)
