@@ -19,7 +19,7 @@ from YukkiMusic.utils.database import (get_lang, is_maintenance,
 from YukkiMusic.utils.decorators.language import language
 
 # Commands
-MAINTENANCE_COMMAND = get_command("MAINTENANCE_COMMAND")
+MAINTENANCE_COMMAND = get_command("فەرمانی پاراستن")
 
 
 @app.on_message(filters.command(MAINTENANCE_COMMAND) & SUDOERS)
@@ -35,21 +35,21 @@ async def maintenance(client, message: Message):
     message.chat.id
     state = message.text.split(None, 1)[1].strip()
     state = state.lower()
-    if state == "enable":
+    if state == "چالاککردن":
         if await is_maintenance() is False:
             await message.reply_text(
-                "Maintenance mode is already enabled"
+                "دۆخی پاراستن لە ئێستاوە چالاککراوە."
             )
         else:
             await maintenance_on()
             await message.reply_text(_["maint_2"])
-    elif state == "disable":
+    elif state == "نا چالاککردن":
         if await is_maintenance() is False:
             await maintenance_off()
             await message.reply_text(_["maint_3"])
         else:
             await message.reply_text(
-                "Maintenance mode is already disabled"
+                "دۆخی پاراستن لە ئێستاوە نا چالاککراوە"
             )
     else:
         await message.reply_text(usage)
