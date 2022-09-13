@@ -48,7 +48,7 @@ async def useradd(client, message: Message, _):
             SUDOERS.add(user.id)
             await message.reply_text(_["sudo_2"].format(user.mention))
         else:
-            await message.reply_text("Failed")
+            await message.reply_text("سەرکەوتوو نەبوو")
         return
     if message.reply_to_message.from_user.id in SUDOERS:
         return await message.reply_text(
@@ -65,7 +65,7 @@ async def useradd(client, message: Message, _):
             )
         )
     else:
-        await message.reply_text("Failed")
+        await message.reply_text("سەرکەوتوو نەبوو")
     return
 
 
@@ -92,7 +92,7 @@ async def userdel(client, message: Message, _):
             SUDOERS.remove(user.id)
             await message.reply_text(_["sudo_4"])
             return
-        await message.reply_text(f"Something wrong happened.")
+        await message.reply_text(f"شتێکی هەڵە ڕوویدا.")
         return
     user_id = message.reply_to_message.from_user.id
     if user_id not in SUDOERS:
@@ -102,8 +102,7 @@ async def userdel(client, message: Message, _):
         SUDOERS.remove(user_id)
         await message.reply_text(_["sudo_4"])
         return
-    await message.reply_text(f"Something wrong happened.")
-
+    await message.reply_text(f"شتێکی هەڵە ڕوویدا.")
 
 @app.on_message(filters.command(SUDOUSERS_COMMAND) & ~BANNED_USERS)
 @language
