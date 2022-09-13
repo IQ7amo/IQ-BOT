@@ -41,7 +41,7 @@ async def dont_do_this():
                 else:
                     schats = await get_served_chats()
                 for chat in schats:
-                    chats.append(int(chat["chat_id"]))
+                    chats.append(int(chat["ناسنامەی چات"]))
                 total = len(chats)
                 if total >= 100:
                     total //= 10
@@ -73,7 +73,7 @@ async def dont_do_this():
                         time_now = datetime.now()
                         put = {
                             "msg_id": sent.message_id,
-                            "timer_after": time_now
+                            "کاتی دوای": time_now
                             + timedelta(
                                 minutes=config.CLEANMODE_DELETE_MINS
                             ),
