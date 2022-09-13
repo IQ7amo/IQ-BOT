@@ -20,9 +20,9 @@ from YukkiMusic.utils.database import (add_private_chat,
                                        remove_private_chat)
 from YukkiMusic.utils.decorators.language import language
 
-AUTHORIZE_COMMAND = get_command("AUTHORIZE_COMMAND")
-UNAUTHORIZE_COMMAND = get_command("UNAUTHORIZE_COMMAND")
-AUTHORIZED_COMMAND = get_command("AUTHORIZED_COMMAND")
+AUTHORIZE_COMMAND = get_command("فەرمانی ڕێپێدان")
+UNAUTHORIZE_COMMAND = get_command("فەرمانی لادانی ڕێپێدان")
+AUTHORIZED_COMMAND = get_command("فەرمانی ڕێپێدراوەکان")
 
 
 @app.on_message(filters.command(AUTHORIZE_COMMAND) & SUDOERS)
@@ -71,7 +71,7 @@ async def authorized(client, message: Message, _):
     text = _["pbot_9"]
     chats = await get_private_served_chats()
     for chat in chats:
-        served_chats.append(int(chat["chat_id"]))
+        served_chats.append(int(chat["ناسنامەی چات"]))
     count = 0
     co = 0
     msg = _["pbot_13"]
