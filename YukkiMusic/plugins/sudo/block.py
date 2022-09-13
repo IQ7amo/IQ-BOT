@@ -18,9 +18,9 @@ from YukkiMusic.utils.database import add_gban_user, remove_gban_user
 from YukkiMusic.utils.decorators.language import language
 
 # Command
-BLOCK_COMMAND = get_command("BLOCK_COMMAND")
-UNBLOCK_COMMAND = get_command("UNBLOCK_COMMAND")
-BLOCKED_COMMAND = get_command("BLOCKED_COMMAND")
+BLOCK_COMMAND = get_command("فەرمانی بلۆك")
+UNBLOCK_COMMAND = get_command("فەرمانی لادانی بلۆك")
+BLOCKED_COMMAND = get_command("بلۆککراوەکان")
 
 
 @app.on_message(filters.command(BLOCK_COMMAND) & SUDOERS)
