@@ -18,7 +18,7 @@ from YukkiMusic.utils.database import add_off, add_on
 from YukkiMusic.utils.decorators.language import language
 
 # Commands
-VIDEOMODE_COMMAND = get_command("VIDEOMODE_COMMAND")
+VIDEOMODE_COMMAND = get_command("فەرمانی مۆدی ڤیدیۆ")
 
 
 @app.on_message(filters.command(VIDEOMODE_COMMAND) & SUDOERS)
@@ -29,7 +29,7 @@ async def videoloaymode(client, message: Message, _):
         return await message.reply_text(usage)
     state = message.text.split(None, 1)[1].strip()
     state = state.lower()
-    if state == "download":
+    if state == "دابەزاندن":
         await add_on(config.YTDOWNLOADER)
         await message.reply_text(_["vidmode_2"])
     elif state == "m3u8":
