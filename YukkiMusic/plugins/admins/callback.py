@@ -86,7 +86,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             buttons = panel_markup_1(_, videoid, chat_id)
         if pages == 1:
             buttons = panel_markup_3(_, videoid, chat_id)
-    if state == "Back":
+    if state == "گەڕانەوە":
         if pages == 2:
             buttons = panel_markup_2(_, videoid, chat_id)
         if pages == 1:
@@ -105,7 +105,7 @@ downvote = {}
 downvoters = {}
 
 
-@app.on_callback_query(filters.regex("ADMIN") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("بەڕێوبەر") & ~BANNED_USERS)
 @languageCB
 async def del_back_playlist(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
@@ -132,7 +132,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     return await CallbackQuery.answer(
                         _["admin_19"], show_alert=True
                     )
-    if command == "Pause":
+    if command == "وەستاندن":
         if not await is_music_playing(chat_id):
             return await CallbackQuery.answer(
                 _["admin_1"], show_alert=True
@@ -143,7 +143,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         await CallbackQuery.message.reply_text(
             _["admin_2"].format(mention)
         )
-    elif command == "Resume":
+    elif command == "دەستپێکردنەوە":
         if await is_music_playing(chat_id):
             return await CallbackQuery.answer(
                 _["admin_3"], show_alert=True
@@ -154,14 +154,14 @@ async def del_back_playlist(client, CallbackQuery, _):
         await CallbackQuery.message.reply_text(
             _["admin_4"].format(mention)
         )
-    elif command == "Stop" or command == "End":
+    elif command == "وەستان" or command == "کۆتایی":
         await CallbackQuery.answer()
         await Yukki.stop_stream(chat_id)
         await set_loop(chat_id, 0)
         await CallbackQuery.message.reply_text(
             _["admin_9"].format(mention)
         )
-    elif command == "Mute":
+    elif command == "کپکردن":
         if await is_muted(chat_id):
             return await CallbackQuery.answer(
                 _["admin_5"], show_alert=True
@@ -172,7 +172,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         await CallbackQuery.message.reply_text(
             _["admin_6"].format(mention)
         )
-    elif command == "Unmute":
+    elif command == "لادانی کپکردن":
         if not await is_muted(chat_id):
             return await CallbackQuery.answer(
                 _["admin_7"], show_alert=True
@@ -183,13 +183,13 @@ async def del_back_playlist(client, CallbackQuery, _):
         await CallbackQuery.message.reply_text(
             _["admin_8"].format(mention)
         )
-    elif command == "Loop":
+    elif command == "ئەڵقە":
         await CallbackQuery.answer()
         await set_loop(chat_id, 3)
         await CallbackQuery.message.reply_text(
             _["admin_25"].format(mention, 3)
         )
-    elif command == "Shuffle":
+    elif command == "ڕێکخستنەوە":
         check = db.get(chat_id)
         if not check:
             return await CallbackQuery.answer(
@@ -213,9 +213,9 @@ async def del_back_playlist(client, CallbackQuery, _):
         await CallbackQuery.message.reply_text(
             _["admin_23"].format(mention)
         )
-    elif command == "Skip":
+    elif command == "تێپەڕاندن":
         check = db.get(chat_id)
-        txt = f"Skipped by {mention}"
+        txt = f"پەڕێندرا لە لایەن {mention}"
         popped = None
         try:
             popped = check.pop(0)
@@ -224,7 +224,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
             if not check:
                 await CallbackQuery.edit_message_text(
-                    f"Skipped by {mention}"
+                    f"پەڕێندرا لە لایەن {mention}"
                 )
                 await CallbackQuery.message.reply_text(
                     _["admin_10"].format(mention)
@@ -236,7 +236,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         except:
             try:
                 await CallbackQuery.edit_message_text(
-                    f"Skipped by {mention}"
+                    f"پەڕێندرا لە لایەن {mention}"
                 )
                 await CallbackQuery.message.reply_text(
                     _["admin_10"].format(mention)
@@ -245,13 +245,13 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 return
         await CallbackQuery.answer()
-        queued = check[0]["file"]
-        title = (check[0]["title"]).title()
-        user = check[0]["by"]
-        streamtype = check[0]["streamtype"]
-        videoid = check[0]["vidid"]
-        status = True if str(streamtype) == "video" else None
-        db[chat_id][0]["played"] = 0
+        queued = check[0]["فایل"]
+        title = (check[0]["ناونیشان"]).title()
+        user = check[0]["لە لایەن"]
+        streamtype = check[0]["جۆری پەخش"]
+        videoid = check[0]["ناسنامەی ڤیدیۆ"]
+        status = True if str(streamtype) == "ڤیدیۆ" else None
+        db[chat_id][0]["کاردەکات"] = 0
         if "live_" in queued:
             n, link = await YouTube.video(videoid, True)
             if n == 0:
@@ -275,7 +275,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
+            db[chat_id][0]["نیشانەکردن"] = "tg"
             await CallbackQuery.edit_message_text(txt)
         elif "vid_" in queued:
             mystic = await CallbackQuery.message.reply_text(
@@ -307,7 +307,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "stream"
+            db[chat_id][0]["نیشانەکردن"] = "پەخش"
             await CallbackQuery.edit_message_text(txt)
             await mystic.delete()
         elif "index_" in queued:
@@ -326,7 +326,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "tg"
+            db[chat_id][0]["نیشانەکردن"] = "tg"
             await CallbackQuery.edit_message_text(txt)
         else:
             try:
@@ -339,7 +339,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 button = telegram_markup(_, chat_id)
                 run = await CallbackQuery.message.reply_photo(
                     photo=TELEGRAM_AUDIO_URL
-                    if str(streamtype) == "audio"
+                    if str(streamtype) == "دەنگ"
                     else TELEGRAM_VIDEO_URL,
                     caption=_["stream_3"].format(
                         title, check[0]["dur"], user
@@ -347,12 +347,12 @@ async def del_back_playlist(client, CallbackQuery, _):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "tg"
-            elif videoid == "soundcloud":
+                db[chat_id][0]["نیشانەکردن"] = "tg"
+            elif videoid == "هەوری دەنگ":
                 button = telegram_markup(_, chat_id)
                 run = await CallbackQuery.message.reply_photo(
                     photo=SOUNCLOUD_IMG_URL
-                    if str(streamtype) == "audio"
+                    if str(streamtype) == "دەنگ"
                     else TELEGRAM_VIDEO_URL,
                     caption=_["stream_3"].format(
                         title, check[0]["dur"], user
@@ -360,7 +360,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "tg"
+                db[chat_id][0]["نیشانەکردن"] = "tg"
             else:
                 button = stream_markup(_, videoid, chat_id)
                 img = await gen_thumb(videoid)
@@ -373,7 +373,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "stream"
+                db[chat_id][0]["نیشانەکردن"] = "پەخش"
             await CallbackQuery.edit_message_text(txt)
     else:
         playing = db.get(chat_id)
@@ -381,7 +381,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(
                 _["queue_2"], show_alert=True
             )
-        duration_seconds = int(playing[0]["seconds"])
+        duration_seconds = int(playing[0]["چرکە"])
         if duration_seconds == 0:
             return await CallbackQuery.answer(
                 _["admin_30"], show_alert=True
@@ -391,7 +391,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(
                 _["admin_30"], show_alert=True
             )
-        duration_played = int(playing[0]["played"])
+        duration_played = int(playing[0]["کاردەکات"])
         if int(command) in [1, 2]:
             duration_to_skip = 10
         else:
@@ -401,7 +401,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             if (duration_played - duration_to_skip) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(
-                    f"Bot is not able to seek due to total duration has been exceeded.\n\nCurrently played** {bet}** mins out of **{duration}** mins",
+                    f"بۆت ناتوانێت بەدوایدا بگەڕێت بەهۆی تەواوبوونی ماوەکە تێپەڕیوە.\n\nلە ئێستادا کاردەکات** {bet}** لە دەرەوەی **{duration}** خولەك",
                     show_alert=True,
                 )
             to_seek = duration_played - duration_to_skip + 1
@@ -412,7 +412,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             ) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(
-                    f"Bot is not able to seek due to total duration has been exceeded.\n\nCurrently played** {bet}** mins out of **{duration}** mins",
+                    f"بۆت ناتوانێت بەدوایدا بگەڕێت بەهۆی تەواوبوونی ماوەکە تێپەڕیوە.\n\nلە ئێستادا کاردەکات** {bet}** لە دەرەوەی **{duration}** خولەك",
                     show_alert=True,
                 )
             to_seek = duration_played + duration_to_skip + 1
@@ -420,7 +420,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         mystic = await CallbackQuery.message.reply_text(_["admin_32"])
         if "vid_" in file_path:
             n, file_path = await YouTube.video(
-                playing[0]["vidid"], True
+                playing[0]["ناسنامەی ڤیدیۆ"], True
             )
             if n == 0:
                 return await mystic.edit_text(_["admin_30"])
@@ -430,15 +430,15 @@ async def del_back_playlist(client, CallbackQuery, _):
                 file_path,
                 seconds_to_min(to_seek),
                 duration,
-                playing[0]["streamtype"],
+                playing[0]["جۆری پەخش"],
             )
         except:
             return await mystic.edit_text(_["admin_34"])
         if int(command) in [1, 3]:
-            db[chat_id][0]["played"] -= duration_to_skip
+            db[chat_id][0]["کاردەکات"] -= duration_to_skip
         else:
-            db[chat_id][0]["played"] += duration_to_skip
+            db[chat_id][0]["کاردەکات"] += duration_to_skip
         string = _["admin_33"].format(seconds_to_min(to_seek))
         await mystic.edit_text(
-            f"{string}\n\nChanges done by: {mention}"
+            f"{string}\n\nگۆڕانکاریەکان ئەنجام دراوە لەلایەن: {mention}"
         )
