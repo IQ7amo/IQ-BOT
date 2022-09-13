@@ -53,23 +53,23 @@ class Userbot(Client):
         )
 
     async def start(self):
-        LOGGER(__name__).info(f"Starting Assistant Clients")
+        LOGGER(__name__).info(f"دەسپێکردنی یاریدەدەری کڕیارەکان")
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("TeamYukki")
-                await self.one.join_chat("TheYukki")
-                await self.one.join_chat("YukkiSupport")
+                await self.one.join_chat("IQaizen")
+                await self.one.join_chat("IQerenh")
+                await self.one.join_chat("xv7amo")
             except:
                 pass
             assistants.append(1)
             try:
                 await self.one.send_message(
-                    config.LOG_GROUP_ID, "Assistant Started"
+                    config.LOG_GROUP_ID, "یاریدەدەر دەستیپێکرد"
                 )
             except:
                 LOGGER(__name__).error(
-                    f"Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    f"ئەکاونتی یاریدەدەری 1 سەرکەوتوو نەبوو لە چوونە ژورەوەی گرووپی تۆمار. دڵنیابە لەوەی کە تۆ یاریدەدەرەکەت زیاد کردووە بۆ گروپی تۆمارەکەت و بەرز کراوەتەوە وەک بەڕێوەبەر! "
                 )
                 sys.exit()
             get_me = await self.one.get_me()
@@ -83,20 +83,20 @@ class Userbot(Client):
             else:
                 self.one.name = get_me.first_name
             LOGGER(__name__).info(
-                f"Assistant Started as {self.one.name}"
+                f"یاریدەدەر دەستیپێکرد وەك {self.one.name}"
             )
         if config.STRING2:
             await self.two.start()
             try:
-                await self.two.join_chat("TeamYukki")
-                await self.two.join_chat("TheYukki")
-                await self.two.join_chat("YukkiSupport")
+                await self.two.join_chat("IQaizen")
+                await self.two.join_chat("IQerenh")
+                await self.two.join_chat("xv7amo")
             except:
                 pass
             assistants.append(2)
             try:
                 await self.two.send_message(
-                    config.LOG_GROUP_ID, "Assistant Started"
+                    config.LOG_GROUP_ID, "یاریدەدەر دەستیپێکرد"
                 )
             except:
                 LOGGER(__name__).error(
@@ -158,11 +158,11 @@ class Userbot(Client):
             assistants.append(4)
             try:
                 await self.four.send_message(
-                    config.LOG_GROUP_ID, "Assistant Started"
+                    config.LOG_GROUP_ID, "یاردەدەر دەستیپێکرد"
                 )
             except:
                 LOGGER(__name__).error(
-                    f"Assistant Account 4 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    f"ئەکاونتی یاریدەدەری 4 سەرکەوتوو نەبوو لە چوونە ژورەوەی گرووپی تۆمار. دڵنیابە لەوەی کە تۆ یاریدەدەرەکەت زیاد کردووە بۆ گروپی تۆمارەکەت و بەرز کراوەتەوە وەک بەڕێوەبەر! "
                 )
                 sys.exit()
             get_me = await self.four.get_me()
@@ -181,19 +181,19 @@ class Userbot(Client):
         if config.STRING5:
             await self.five.start()
             try:
-                await self.five.join_chat("TeamYukki")
-                await self.five.join_chat("TheYukki")
-                await self.five.join_chat("YukkiSupport")
+                await self.five.join_chat("IQaizen")
+                await self.five.join_chat("IQerenh")
+                await self.five.join_chat("xv7amo")
             except:
                 pass
             assistants.append(5)
             try:
                 await self.five.send_message(
-                    config.LOG_GROUP_ID, "Assistant Started"
+                    config.LOG_GROUP_ID, "یاریدەدەر دەستیپێکرد"
                 )
             except:
                 LOGGER(__name__).error(
-                    f"Assistant Account 5 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    f"ئەکاونتی یاریدەدەر 5 سەرکەوتوو نەبوو لە چوونە ژورەوەی گرووپی تۆمار. دڵنیابە لەوەی کە تۆ یاریدەدەرەکەت زیاد کردووە بۆ گروپی تۆمارەکەت و بەرز کراوەتەوە وەک بەڕێوەبەر! "
                 )
                 sys.exit()
             get_me = await self.five.get_me()
