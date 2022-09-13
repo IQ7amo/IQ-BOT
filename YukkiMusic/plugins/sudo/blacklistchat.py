@@ -21,9 +21,9 @@ from YukkiMusic.utils.decorators.language import language
 
 # Commands
 
-BLACKLISTCHAT_COMMAND = get_command("BLACKLISTCHAT_COMMAND")
-WHITELISTCHAT_COMMAND = get_command("WHITELISTCHAT_COMMAND")
-BLACKLISTEDCHAT_COMMAND = get_command("BLACKLISTEDCHAT_COMMAND")
+BLACKLISTCHAT_COMMAND = get_command("فەرمانی لیستی ڕەشی چات")
+WHITELISTCHAT_COMMAND = get_command("فەرمانی لیستی سپی چات")
+BLACKLISTEDCHAT_COMMAND = get_command("فەرمانی لیستی ڕەشبوو")
 
 
 @app.on_message(filters.command(BLACKLISTCHAT_COMMAND) & SUDOERS)
@@ -38,7 +38,7 @@ async def blacklist_chat_func(client, message: Message, _):
     if blacklisted:
         await message.reply_text(_["black_3"])
     else:
-        await message.reply_text("Something wrong happened.")
+        await message.reply_text("شتێکی هەڵە ڕوویدا.")
     try:
         await app.leave_chat(chat_id)
     except:
@@ -56,7 +56,7 @@ async def white_funciton(client, message: Message, _):
     whitelisted = await whitelist_chat(chat_id)
     if whitelisted:
         return await message.reply_text(_["black_6"])
-    await message.reply_text("Something wrong happened.")
+    await message.reply_text("شتێکی هەڵە ڕوویدا.")
 
 
 @app.on_message(
@@ -70,7 +70,7 @@ async def all_chats(client, message: Message, _):
         try:
             title = (await app.get_chat(chat_id)).title
         except Exception:
-            title = "Private"
+            title = "تایبەت"
         j = 1
         text += f"**{count}. {title}** [`{chat_id}`]\n"
     if j == 0:
