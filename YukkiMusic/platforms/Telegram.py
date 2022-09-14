@@ -56,16 +56,16 @@ class TeleAPI:
             file_name = file.file_name
             if file_name is None:
                 file_name = (
-                    "Telegram Audio File"
+                    "فایلی دەنگی تێلەگرام"
                     if audio
-                    else "Telegram Video File"
+                    else "فایلی ڤیدیۆی تێلەگرام"
                 )
 
         except:
             file_name = (
-                "Telegram Audio File"
+                "فایلی دەنگی تێلەگرام"
                 if audio
-                else "Telegram Video File"
+                else "فایلی ڤیدیۆی تێلەگرام"
             )
         return file_name
 
@@ -73,7 +73,7 @@ class TeleAPI:
         try:
             dur = seconds_to_min(file.duration)
         except:
-            dur = "Unknown"
+            dur = "نەناسراو"
         return dur
 
     async def get_filepath(
@@ -107,7 +107,7 @@ class TeleAPI:
             except:
                 file_name = video.file_unique_id + "." + "mp4"
             file_name = os.path.join(
-                os.path.realpath("downloads"), file_name
+                os.path.realpath("دادەبەزن"), file_name
             )
         return file_name
 
@@ -128,7 +128,7 @@ class TeleAPI:
                     [
                         [
                             InlineKeyboardButton(
-                                text="🚦 Cancel Downloading",
+                                text="🚦 هەڵوەشاندنەوەی داگرتن",
                                 callback_data="stop_downloading",
                             ),
                         ]
@@ -142,18 +142,18 @@ class TeleAPI:
                     downloader[message.message_id] = eta
                     eta = get_readable_time(eta)
                     if not eta:
-                        eta = "0 sec"
+                        eta = "0 چرکە"
                     total_size = convert_bytes(total)
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-**{MUSIC_BOT_NAME} Telegram Media Downloader**
+**{MUSIC_BOT_NAME} داگرتنی میدیای تێلەگرام**
 
-**Total FileSize:** {total_size}
-**Completed:** {completed_size} 
-**Percentage:** {percentage[:5]}%
+**کۆی قەبارەی فایل:** {total_size}
+**تەواوبوو:** {completed_size} 
+**ڕێژەی سەدی:** {percentage[:5]}%
 
-**Speed:** {speed}/s
+**خێرایی:** {speed}/s
 **ETA:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
@@ -173,7 +173,7 @@ class TeleAPI:
                     progress=progress,
                 )
                 await mystic.edit_text(
-                    "Successfully Downloaded.. Processing file now"
+                    "سەرکەوتووانە دابەزێنراوە.. پرۆسەکردنی فایل ئێستا"
                 )
                 downloader.pop(message.message_id)
             except:
