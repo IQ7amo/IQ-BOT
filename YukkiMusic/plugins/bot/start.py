@@ -36,7 +36,7 @@ loop = asyncio.get_running_loop()
 
 
 @app.on_message(
-    filters.command(get_command("START_COMMAND"))
+    filters.command(get_command("فەرمانی دەستپێکردن"))
     & filters.private
     & ~filters.edited
     & ~BANNED_USERS
@@ -46,16 +46,16 @@ async def start_comm(client, message: Message, _):
     await add_served_user(message.from_user.id)
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
-        if name[0:4] == "help":
+        if name[0:4] == "یارمەتی":
             keyboard = help_pannel(_)
             return await message.reply_text(
                 _["help_1"], reply_markup=keyboard
             )
-        if name[0:4] == "song":
+        if name[0:4] == "گۆرانی":
             return await message.reply_text(_["song_2"])
-        if name[0:3] == "sta":
+        if name[0:3] == "ئامار":
             m = await message.reply_text(
-                "🔎 Fetching your personal stats.!"
+                "🔎 گەڕانی ئامارە کەسییەکانت!"
             )
             stats = await get_userss(message.from_user.id)
             tot = len(stats)
@@ -68,7 +68,7 @@ async def start_comm(client, message: Message, _):
                 limit = 0
                 results = {}
                 for i in stats:
-                    top_list = stats[i]["spot"]
+                    top_list = stats[i]["خاڵ"]
                     results[str(i)] = top_list
                     list_arranged = dict(
                         sorted(
@@ -89,7 +89,7 @@ async def start_comm(client, message: Message, _):
                         videoid = vidid
                     limit += 1
                     details = stats.get(vidid)
-                    title = (details["title"][:35]).title()
+                    title = (details["ناونیشان"][:35]).title()
                     if vidid == "telegram":
                         msg += f"🔗[Telegram Files and Audios](https://t.me/telegram) ** played {count} times**\n\n"
                     else:
@@ -108,14 +108,14 @@ async def start_comm(client, message: Message, _):
             await m.delete()
             await message.reply_photo(photo=thumbnail, caption=msg)
             return
-        if name[0:3] == "sud":
+        if name[0:3] == "بەکارهێنەری جێگرەوە":
             await sudoers_list(client=client, message=message, _=_)
             if await is_on_off(config.LOG):
                 sender_id = message.from_user.id
                 sender_name = message.from_user.first_name
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    f"{message.from_user.mention} has just started bot to check <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
+                    f"{message.from_user.mention} تازە دەستی کردووە بە بۆت بۆ پشکنین <code>لیستی بەکارهێنەری جێگرەوە</code>\n\n**ناسنامەی بەکارهێنەر:** {sender_id}\n**ناوی بەکارهێنەر:** {sender_name}",
                 )
             return
         if name[0:3] == "lyr":
@@ -128,37 +128,37 @@ async def start_comm(client, message: Message, _):
                 return await message.reply_text(
                     "Failed to get lyrics."
                 )
-        if name[0:3] == "del":
+        if name[0:3] == "سڕینەوە":
             await del_plist_msg(client=client, message=message, _=_)
-        if name[0:3] == "inf":
-            m = await message.reply_text("🔎 Fetching Info!")
+        if name[0:3] == "زانیاری":
+            m = await message.reply_text("🔎 گەڕانی زانیاری")
             query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
             results = VideosSearch(query, limit=1)
-            for result in (await results.next())["result"]:
-                title = result["title"]
-                duration = result["duration"]
-                views = result["viewCount"]["short"]
+            for result in (await results.next())["ئەنجام"]:
+                title = result["ناونیشان"]
+                duration = result["ماوەکەی"]
+                views = result["پیشاندانی ژماردن"]["کورت"]
                 thumbnail = result["thumbnails"][0]["url"].split("?")[
                     0
                 ]
-                channellink = result["channel"]["link"]
-                channel = result["channel"]["name"]
-                link = result["link"]
-                published = result["publishedTime"]
+                channellink = result["کەناڵ"]["بەستەر"]
+                channel = result["کەناڵ"]["ناو"]
+                link = result["بەستەر"]
+                published = result["کاتی بڵاوکراوە"]
             searched_text = f"""
-🔍__**Video Track Information**__
+🔍__**گەڕانی زانیاری تڕاکی ڤیدیۆ**__
 
-❇️**Title:** {title}
+❇️**ناونیشان:** {title}
 
-⏳**Duration:** {duration} Mins
-👀**Views:** `{views}`
-⏰**Published Time:** {published}
-🎥**Channel Name:** {channel}
-📎**Channel Link:** [Visit From Here]({channellink})
-🔗**Video Link:** [Link]({link})
+⏳**ماوەکەی:** {duration} Mins
+👀**بینینەکان:** `{views}`
+⏰**کاتی بڵاوکراوە:** {published}
+🎥**ناوی چەناڵ:** {channel}
+📎**بەستەری چەناڵ:** [įسەردانی ئێرە بکە]({channellink})
+🔗**بەستەری ڤیدیۆ:** [ßبەستەر]({link})
 
-⚡️ __Searched Powered By {config.MUSIC_BOT_NAME}__"""
+⚡️ __هێزی گەڕان لەلایەن {config.MUSIC_BOT_NAME}__"""
             key = InlineKeyboardMarkup(
                 [
                     [
@@ -166,7 +166,7 @@ async def start_comm(client, message: Message, _):
                             text="🎥 Watch ", url=f"{link}"
                         ),
                         InlineKeyboardButton(
-                            text="🔄 Close", callback_data="close"
+                            text="🔄 داخستن", callback_data="Close"
                         ),
                     ],
                 ]
@@ -184,7 +184,7 @@ async def start_comm(client, message: Message, _):
                 sender_name = message.from_user.first_name
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    f"{message.from_user.mention} has just started bot to check <code>VIDEO INFORMATION</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
+                    f"{message.from_user.mention} تازە بۆت دەستی کردووە بە پشکنین <code>زانیاری ڤیدیۆ</code>\n\n**ناسنامەی بەکارهێنەر:** {sender_id}\n**ناوی بەکارهێنەر:** {sender_name}",
                 )
     else:
         try:
@@ -217,12 +217,12 @@ async def start_comm(client, message: Message, _):
             sender_name = message.from_user.first_name
             return await app.send_message(
                 config.LOG_GROUP_ID,
-                f"{message.from_user.mention} has just started Bot.\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
+                f"{message.from_user.mention} بۆت ئێستا دەستی پێکرد.\n\n**ناسنامەی بەکارهێنەر:** {sender_id}\n**ناوی بەکارهێنەر:** {sender_name}",
             )
 
 
 @app.on_message(
-    filters.command(get_command("START_COMMAND"))
+    filters.command(get_command("فەرمانی دەستپێکردن"))
     & filters.group
     & ~filters.edited
     & ~BANNED_USERS
@@ -247,7 +247,7 @@ async def welcome(client, message: Message):
     if config.PRIVATE_BOT_MODE == str(True):
         if not await is_served_private_chat(message.chat.id):
             await message.reply_text(
-                "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
+                "**بۆتێکی میوزیکی تایبەت**\n\nOnly بۆ قسەی ڕێپێدراو لەلایەن خاوەنەکەوە داوا لە خاوەنەکەم بکە کە سەرەتا ڕێگە بە چاتەکەت بدات."
             )
             return await app.leave_chat(message.chat.id)
     else:
@@ -258,7 +258,7 @@ async def welcome(client, message: Message):
             _ = get_string(language)
             if member.id == app.id:
                 chat_type = message.chat.type
-                if chat_type != "supergroup":
+                if chat_type != "گرووپی گشتی":
                     await message.reply_text(_["start_6"])
                     return await app.leave_chat(message.chat.id)
                 if chat_id in await blacklisted_chats():
