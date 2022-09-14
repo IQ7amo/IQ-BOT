@@ -83,7 +83,7 @@ class Userbot(Client):
             else:
                 self.one.name = get_me.first_name
             LOGGER(__name__).info(
-                f"یاریدەدەر دەستیپێکرد وەك {self.one.name}"
+                f"یاریدەدەر دەستی پێکرد  {self.one.name}"
             )
         if config.STRING2:
             await self.two.start()
@@ -96,11 +96,11 @@ class Userbot(Client):
             assistants.append(2)
             try:
                 await self.two.send_message(
-                    config.LOG_GROUP_ID, "یاریدەدەر دەستیپێکرد"
+                    config.LOG_GROUP_ID, "یاریدەدەر دەستی پێکرد"
                 )
             except:
                 LOGGER(__name__).error(
-                    f"Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    f"ئەکاونتی یاریدەدەری 2 سەرکەوتوو نەبوو لە چوونە ژورەوەی گرووپی تۆمار. دڵنیابە لەوەی کە تۆ یاریدەدەرەکەت زیاد کردووە بۆ گروپی تۆمارەکەت و بەرز کراوەتەوە وەک بەڕێوەبەر! "
                 )
                 sys.exit()
             get_me = await self.two.get_me()
@@ -114,7 +114,7 @@ class Userbot(Client):
             else:
                 self.two.name = get_me.first_name
             LOGGER(__name__).info(
-                f"Assistant Two Started as {self.two.name}"
+                f"یاریدەدەری دوو دەستی پێکرد {self.two.name}"
             )
         if config.STRING3:
             await self.three.start()
@@ -127,11 +127,11 @@ class Userbot(Client):
             assistants.append(3)
             try:
                 await self.three.send_message(
-                    config.LOG_GROUP_ID, "Assistant Started"
+                    config.LOG_GROUP_ID, "یاریدەدەر دەستی پێکرد"
                 )
             except:
                 LOGGER(__name__).error(
-                    f"Assistant Account 3 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    f"ئەکاونتی یاریدەدەری 3 سەرکەوتوو نەبوو لە چوونە ژورەوەی گرووپی تۆمار. دڵنیابە لەوەی کە تۆ یاریدەدەرەکەت زیاد کردووە بۆ گروپی تۆمارەکەت و بەرز کراوەتەوە وەک بەڕێوەبەر! "
                 )
                 sys.exit()
             get_me = await self.three.get_me()
@@ -145,20 +145,20 @@ class Userbot(Client):
             else:
                 self.three.name = get_me.first_name
             LOGGER(__name__).info(
-                f"Assistant Three Started as {self.three.name}"
+                f"یاریدەدەری سێ دەستی پێکرد {self.three.name}"
             )
         if config.STRING4:
             await self.four.start()
             try:
-                await self.four.join_chat("TeamYukki")
-                await self.four.join_chat("TheYukki")
-                await self.four.join_chat("YukkiSupport")
+                await self.four.join_chat("IQaizen")
+                await self.four.join_chat("IQerenh")
+                await self.four.join_chat("xv7amo")
             except:
                 pass
             assistants.append(4)
             try:
                 await self.four.send_message(
-                    config.LOG_GROUP_ID, "یاردەدەر دەستیپێکرد"
+                    config.LOG_GROUP_ID, "یاردەدەر دەستی پێکرد"
                 )
             except:
                 LOGGER(__name__).error(
@@ -176,7 +176,7 @@ class Userbot(Client):
             else:
                 self.four.name = get_me.first_name
             LOGGER(__name__).info(
-                f"Assistant Four Started as {self.four.name}"
+                f"یاریدەدەری چوار دەستی پێکرد {self.four.name}"
             )
         if config.STRING5:
             await self.five.start()
@@ -189,7 +189,7 @@ class Userbot(Client):
             assistants.append(5)
             try:
                 await self.five.send_message(
-                    config.LOG_GROUP_ID, "یاریدەدەر دەستیپێکرد"
+                    config.LOG_GROUP_ID, "یاریدەدەر دەستی پێکرد"
                 )
             except:
                 LOGGER(__name__).error(
@@ -207,5 +207,5 @@ class Userbot(Client):
             else:
                 self.five.name = get_me.first_name
             LOGGER(__name__).info(
-                f"Assistant Five Started as {self.five.name}"
+                f"یاریدەدەری پێنج دەستی پێکرد {self.five.name}"
             )
