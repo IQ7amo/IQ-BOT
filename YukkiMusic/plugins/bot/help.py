@@ -25,7 +25,7 @@ from YukkiMusic.utils.inline.help import (help_back_markup,
                                           private_help_panel)
 
 ### Command
-HELP_COMMAND = get_command("HELP_COMMAND")
+HELP_COMMAND = get_command("فەرمانی یارمەتی")
 
 
 @app.on_message(
@@ -35,7 +35,7 @@ HELP_COMMAND = get_command("HELP_COMMAND")
     & ~BANNED_USERS
 )
 @app.on_callback_query(
-    filters.regex("settings_back_helper") & ~BANNED_USERS
+    filters.regex("ڕێکبەندەکانی یارمەتیدەری دواوە") & ~BANNED_USERS
 )
 async def helper_private(
     client: app, update: Union[types.Message, types.CallbackQuery]
@@ -86,7 +86,7 @@ async def help_com_group(client, message: Message, _):
     )
 
 
-@app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("پەیوەندیکردنی یارمەتیدەر") & ~BANNED_USERS)
 @languageCB
 async def helper_cb(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
@@ -95,7 +95,7 @@ async def helper_cb(client, CallbackQuery, _):
     if cb == "hb5":
         if CallbackQuery.from_user.id not in SUDOERS:
             return await CallbackQuery.answer(
-                "Only for Sudo Users", show_alert=True
+                "تەنیا بۆ بەکارهێنەرانی بەکارهێنەری جێگرەوە", show_alert=True
             )
         else:
             await CallbackQuery.edit_message_text(
