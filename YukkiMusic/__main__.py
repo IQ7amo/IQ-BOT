@@ -32,16 +32,16 @@ async def init():
         and not config.STRING4
         and not config.STRING5
     ):
-        LOGGER("YukkiMusic").error(
-            "No Assistant Clients Vars Defined!.. Exiting Process."
+        LOGGER("IQmusic").error(
+            "هیچ یاریدەدەرێکی کڕیارەکان پێناسە نەکراوە!.. پرۆسەی دەرچوون"
         )
         return
     if (
         not config.SPOTIFY_CLIENT_ID
         and not config.SPOTIFY_CLIENT_SECRET
     ):
-        LOGGER("YukkiMusic").warning(
-            "No Spotify Vars defined. Your bot won't be able to play spotify queries."
+        LOGGER("IQmusic").warning(
+            "هیچ سپۆتیفای ڤار پێناسە نەکراوە. بۆتەکەت ناتوانێت کاربکات بۆ نیشانەکردنی پرسیارەکان"
         )
     try:
         users = await get_gbanned()
@@ -54,9 +54,9 @@ async def init():
         pass
     await app.start()
     for all_module in ALL_MODULES:
-        importlib.import_module("YukkiMusic.plugins" + all_module)
-    LOGGER("Yukkimusic.plugins").info(
-        "Successfully Imported Modules "
+        importlib.import_module("IQmusic.plugins" + all_module)
+    LOGGER("IQmusic.plugins").info(
+        "بە سەرکەوتوویی هاوردەکرا "
     )
     await userbot.start()
     await Yukki.start()
@@ -65,17 +65,17 @@ async def init():
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
         )
     except NoActiveGroupCall:
-        LOGGER("YukkiMusic").error(
-            "[ERROR] - \n\nPlease turn on your Logger Group's Voice Call. Make sure you never close/end voice call in your log group"
+        LOGGER("IQmusic").error(
+            "[ERROR] - \n\nPlease چاتی دەنگی logger  پێبکە. دڵنیابە لەوەی کە هەرگیز داناخەیت/کۆتایی ناهێنیت بە چاتی دەنگی گرووپی logger"
         )
         sys.exit()
     except:
         pass
     await Yukki.decorators()
-    LOGGER("YukkiMusic").info("Yukki Music Bot Started Successfully")
+    LOGGER("IQmusic").info("IQmusic بە سەرکەوتوویی دەستی پێکرد")
     await idle()
 
 
 if __name__ == "__main__":
     loop.run_until_complete(init())
-    LOGGER("YukkiMusic").info("Stopping Yukki Music Bot! GoodBye")
+    LOGGER("IQmusic").info("وەستاندنی IQ مووزیک بۆت! خوات لەگەڵ")
