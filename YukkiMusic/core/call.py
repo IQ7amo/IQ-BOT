@@ -177,7 +177,7 @@ class Call(PyTgCalls):
                 video_parameters=video_stream_quality,
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
-            if mode == "video"
+            if mode == "ڤیدیۆ"
             else AudioPiped(
                 file_path,
                 audio_parameters=audio_stream_quality,
@@ -205,7 +205,7 @@ class Call(PyTgCalls):
                 get = await app.get_chat_member(chat_id, userbot.id)
             except ChatAdminRequired:
                 raise AssistantErr(_["call_1"])
-            if get.status == "banned" or get.status == "kicked":
+            if get.status == "قەدەغەکراو" or get.status == "لێدان":
                 raise AssistantErr(
                     _["call_2"].format(userbot.username, userbot.id)
                 )
@@ -295,15 +295,15 @@ class Call(PyTgCalls):
                 )
             except Exception as e:
                 raise AssistantErr(
-                    "**No Active Voice Chat Found**\n\nPlease make sure group's voice chat is enabled. If already enabled, please end it and start fresh voice chat again and if the problem continues, try /restart"
+                    "**هیچ چاتێکی دەنگی چالاک نەدۆزرایەوە\n\n\nPlease دڵنیابەوە لەوەی کە چاتی دەنگی گروپەکە چالاك کراوە. ئەگەر لەمەوپێش چالاك بوو، تکایە کۆتایی پێبهێنە و جارێکی تر دەست بە چاتێکی دەنگی تازە بکە و ئەگەر کێشەکە بەردەوام بێت,ئەمە بنووسە /restart"
                 )
         except AlreadyJoinedError:
             raise AssistantErr(
-                "**Assistant Already in Voice Chat**\n\nSystems have detected that assistant is already there in the voice chat, this issue generally comes when you play 2 queries together.\n\nIf assistant is not present in voice chat, please end voice chat and start fresh voice chat again and if the  problem continues, try /restart"
+                "**یاریدەدەر پێشتر لە دەنگی چات /n\n سیستەمەکان ئەوەیان دۆزیەوە کە یاریدەدەرەکە هەر ئێستا لە چاتی دەنگدا هەیە، ئەم کێشەیە بە گشتی دێت کاتێك 2 پەخش بەیەکەوە دەژەنیت.\n\n\nIf یاریدەدەر لە چاتی دەنگدا ئامادە نییە، تکایە کۆتایی بە چاتی دەنگی بهێنە و جارێکی تر دەست بە چاتی دەنگی بکەوە، ئەگەر کێشەکە بەردەوام بوو ئەمە بنووسە /restart"
             )
         except TelegramServerError:
             raise AssistantErr(
-                "**Telegram Server Error**\n\nTelegram is having some internal server problems, Please try playing again.\n\n If this problem keeps coming everytime, please end your voice chat and start fresh voice chat again."
+                "**هەڵەی سێرڤەری تەلەگرام \n\nTelegram هەندێك کێشەی ناوەوەی سێرڤەری هەیە، تکایە دووبارە هەوڵبدە کاری پێبکە.\n\n ئەگەر ئەم کێشەیە بەردەوام دەبێت لە هاتنی هەموو کاتێك، تکایە کۆتایی چاتی دەنگی خۆت بهێنە و دووبارە دەست بە چاتی دەنگی بکەوە"
             )
         await add_active_chat(chat_id)
         await mute_off(chat_id)
@@ -341,17 +341,17 @@ class Call(PyTgCalls):
             except:
                 return
         else:
-            queued = check[0]["file"]
+            queued = check[0]["فایل"]
             language = await get_lang(chat_id)
             _ = get_string(language)
-            title = (check[0]["title"]).title()
-            user = check[0]["by"]
-            original_chat_id = check[0]["chat_id"]
-            streamtype = check[0]["streamtype"]
+            title = (check[0]["ناونیشان"]).title()
+            user = check[0]["لە لایەن"]
+            original_chat_id = check[0]["ناسنامەی چات"]
+            streamtype = check[0]["جۆری پەخش"]
             audio_stream_quality = await get_audio_bitrate(chat_id)
             video_stream_quality = await get_video_bitrate(chat_id)
-            videoid = check[0]["vidid"]
-            check[0]["played"] = 0
+            videoid = check[0]["ناسنامەی ڤیدیۆ"]
+            check[0]["کاردەکات"] = 0
             if "live_" in queued:
                 n, link = await YouTube.video(videoid, True)
                 if n == 0:
@@ -365,7 +365,7 @@ class Call(PyTgCalls):
                         audio_parameters=audio_stream_quality,
                         video_parameters=video_stream_quality,
                     )
-                    if str(streamtype) == "video"
+                    if str(streamtype) == "ڤیدیۆ"
                     else AudioPiped(
                         link, audio_parameters=audio_stream_quality
                     )
@@ -389,7 +389,7 @@ class Call(PyTgCalls):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "tg"
+                db[chat_id][0]["نیشانەکردن"] = "tg"
             elif "vid_" in queued:
                 mystic = await app.send_message(
                     original_chat_id, _["call_10"]
@@ -400,7 +400,7 @@ class Call(PyTgCalls):
                         mystic,
                         videoid=True,
                         video=True
-                        if str(streamtype) == "video"
+                        if str(streamtype) == "ڤیدیۆ"
                         else False,
                     )
                 except:
@@ -413,7 +413,7 @@ class Call(PyTgCalls):
                         audio_parameters=audio_stream_quality,
                         video_parameters=video_stream_quality,
                     )
-                    if str(streamtype) == "video"
+                    if str(streamtype) == "ڤیدیۆ"
                     else AudioPiped(
                         file_path,
                         audio_parameters=audio_stream_quality,
@@ -439,7 +439,7 @@ class Call(PyTgCalls):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "stream"
+                db[chat_id][0]["نیشانەکردن"] = "پەخش"
             elif "index_" in queued:
                 stream = (
                     AudioVideoPiped(
@@ -447,7 +447,7 @@ class Call(PyTgCalls):
                         audio_parameters=audio_stream_quality,
                         video_parameters=video_stream_quality,
                     )
-                    if str(streamtype) == "video"
+                    if str(streamtype) == "ڤیدیۆ"
                     else AudioPiped(
                         videoid, audio_parameters=audio_stream_quality
                     )
@@ -467,7 +467,7 @@ class Call(PyTgCalls):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "tg"
+                db[chat_id][0]["نیشانەکردن"] = "tg"
             else:
                 stream = (
                     AudioVideoPiped(
@@ -475,7 +475,7 @@ class Call(PyTgCalls):
                         audio_parameters=audio_stream_quality,
                         video_parameters=video_stream_quality,
                     )
-                    if str(streamtype) == "video"
+                    if str(streamtype) == "ڤیدیۆ"
                     else AudioPiped(
                         queued, audio_parameters=audio_stream_quality
                     )
@@ -492,7 +492,7 @@ class Call(PyTgCalls):
                     run = await app.send_photo(
                         original_chat_id,
                         photo=config.TELEGRAM_AUDIO_URL
-                        if str(streamtype) == "audio"
+                        if str(streamtype) == "دەنگ"
                         else config.TELEGRAM_VIDEO_URL,
                         caption=_["stream_3"].format(
                             title, check[0]["dur"], user
@@ -500,8 +500,8 @@ class Call(PyTgCalls):
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
-                    db[chat_id][0]["markup"] = "tg"
-                elif videoid == "soundcloud":
+                    db[chat_id][0]["نیشانەکردن"] = "tg"
+                elif videoid == "هەوری دەنگ":
                     button = telegram_markup(_, chat_id)
                     run = await app.send_photo(
                         original_chat_id,
@@ -512,7 +512,7 @@ class Call(PyTgCalls):
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
-                    db[chat_id][0]["markup"] = "tg"
+                    db[chat_id][0]["نیشانەکردن"] = "tg"
                 else:
                     img = await gen_thumb(videoid)
                     button = stream_markup(_, videoid, chat_id)
@@ -526,7 +526,7 @@ class Call(PyTgCalls):
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
-                    db[chat_id][0]["markup"] = "stream"
+                    db[chat_id][0]["نیشانەکردن"] = "پەخش"
 
     async def ping(self):
         pings = []
@@ -543,7 +543,7 @@ class Call(PyTgCalls):
         return str(round(sum(pings) / len(pings), 3))
 
     async def start(self):
-        LOGGER(__name__).info("Starting PyTgCalls Client\n")
+        LOGGER(__name__).info("دەستپێکردن PyTg پەیوەندی بە کڕیارەوە دەکات\n")
         if config.STRING1:
             await self.one.start()
         if config.STRING2:
