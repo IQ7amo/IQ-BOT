@@ -20,10 +20,10 @@ TEMP_MONGODB = "mongodb+srv://shikhar:shikhar@cluster0.6xzlh.mongodb.net/myFirst
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(
-        "No MONGO DB URL found.. Your Bot will work on Yukki's Database"
+        "هیچ بەستەری MONGO DB نەدۆزرایەوە. بۆتەکەت لەسەر داتابەیسی ئای کیو کاردەکات"
     )
     temp_client = Client(
-        "Yukki",
+        "IQ music",
         bot_token=config.BOT_TOKEN,
         api_id=config.API_ID,
         api_hash=config.API_HASH,
